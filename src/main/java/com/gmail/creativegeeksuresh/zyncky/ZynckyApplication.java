@@ -23,6 +23,7 @@ public class ZynckyApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		// checking if all role exists otherwise adding them
+		
 		if (roleService.getAllRoles().size() == 0) {
 			AppConstants.DEFAULT_ROLE_SET.forEach(roleName -> {
 				try {

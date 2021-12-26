@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:fragment="css">
+    <!-- App Icon in html Header -->
+    <link rel="icon" type="image/x-icon" th:href="@{/images/ishare_icon_transparent.png}">
+
+    <!-- Bootstrap | CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- Font Awesome Icons | JS -->
+    <script src="https://kit.fontawesome.com/67fbe7e029.js" crossorigin="anonymous"></script>
+    <!-- Roboto Font | Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+
+</head>
+
+
+<body th:fragment="js">
+    <!-- Bootstrap | JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+    <!-- Custom Sweet Alert 2 | JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    
+    <script th:src="@{/js/custom.sweet.alert.js}"></script>
+    <!-- Application Constants | JS -->
+    <script th:src="@{/js/app.constants.js}"></script>
+    <!-- Custom Form Validation Scripts | JS -->
+    <script th:src="@{/js/form.validation.js}"></script>
+    <!-- Global Scripts | JS -->
+    <script th:src="@{/js/global.js}"></script>
+
+</body>
+
+</html>

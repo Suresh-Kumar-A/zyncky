@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+/*
+ | Naming Guidelines |
+
+ cs - custom (any custom class that we use in css)
+*/
+
+html,
+body {
+  height: 100%;
+}
+.cs-font {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.cs-full-height {
+  height: 100vh;
+  width: 100vw;
+}
+.cs-ml-5 {
+  margin-left: 15rem !important;
+}
+
+.cs-bg-dark{
+  background-color: #30263d !important;
+}
+
+.cs-grid-center{
+  display: grid;
+  place-items: center;
+}

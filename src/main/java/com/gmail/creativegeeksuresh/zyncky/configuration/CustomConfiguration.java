@@ -86,6 +86,7 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
     // Set permissions on endpoints
     http.authorizeRequests()
     // Our public endpoints
+    .antMatchers("/global/**").permitAll()
     .antMatchers("/api/v1/user/login").permitAll()
     .antMatchers("/api/v1/user/create-account").permitAll()
     // .antMatchers(HttpMethod.GET, "/api/author/**").permitAll()

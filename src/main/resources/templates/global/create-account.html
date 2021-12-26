@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Zyncky</title>
+
+    <head th:replace="fragments/global :: css"></head>
+</head>
+
+<body>
+    <div class="cs-grid-center cs-full-height cs-bg-dark">
+        <div class="card" style="max-width: 28rem;">
+            <div class="card-body pt-2">
+                <form action="#">
+                    <div id="step1-div" class="">
+                        <div class="text-center">
+                            <img th:src="@{/images/ishare_icon_transparent.png}" class="w-25" alt="iShare app icon">
+                        </div>
+                        <h4 class="card-title text-center">Create your Account</h4>
+                        <h6 class="card-subtitle text-muted my-1 text-center">to use Zyncky App</h6>
+                
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="username" placeholder="Eg: sureshkumar.a" autofocus
+                                autocomplete="new-username" formControlName="username">
+                            <label for="username">Username</label>
+                            <div class="invalid-tooltip">
+                                Please enter a unique and valid username without space
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" formControlName="password" id="password" placeholder="password"
+                                autocomplete="new-password">
+                            <label for="password">Password</label>
+                            <div class="form-check font-monospace">
+                                <input class="form-check-input" type="checkbox" value="" id="showPassword" onclick="tooglePassword()">
+                                <label class="form-check-label" for="showPassword">
+                                    Show password
+                                </label>
+                            </div>
+                            <div class="invalid-tooltip">
+                                Please enter a unique and valid Password containing at least one numeric digit,
+                                one uppercase and one lowercase letter
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" formControlName="confirmPassword" id="confirmPassword"
+                                placeholder="confirmPassword" autocomplete="new-password">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="invalid-tooltip">
+                                Password and Confirm Password must be same
+                            </div>
+                        </div>
+                        <h6 class="class-text mb-2 font-monospace">By creating an account, you agree to our <a href="#"
+                                class="card-link">Terms of Service</a></h6>
+                        <div class="d-grid">
+                            <button class="btn btn-dark font-monospace fw-bold" type="button" onclick="goToStep2()">Next</button>
+                        </div>
+                    </div>
+                
+                    <div id="step2-div" class="d-none">
+                        <div>
+                            <button type="button" class="btn btn-secondary float-start" onclick="goToStep1()">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <h4 class="card-title text-center">Complete User Profile</h4>
+                        </div>
+                
+                        <h6 class="card-subtitle text-muted my-1 text-center">(highly recommended)</h6>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="displayName" formControlName="displayName"
+                                placeholder="Eg: Suresh Kumar">
+                            <label for="displayName">Display Name</label>
+                            <div class="invalid-tooltip">
+                                Please enter a valid name
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="emailAddress" formControlName="emailAddress"
+                                placeholder="Eg: user@gmail.com">
+                            <label for="emailAddress">Email address</label>
+                            <div class="invalid-tooltip">
+                                Please enter a valid Email address
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber"
+                                placeholder="Eg: 9944278574">
+                            <label for="phoneNumber">Phone Number</label>
+                            <div class="invalid-tooltip">
+                                Please enter a valid number
+                            </div>
+                        </div>
+                        <h6 class="mb-2 font-monospace">By creating an account, you agree to our <a href="#" class="card-link">Terms of
+                                Service</a></h6>
+                        <div class="d-grid">
+                            <button class="btn btn-success font-monospace fw-bold text-uppercase" type="button"
+                                onclick="createAccount()" id="btn-create-account">Create Account</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <h6 class="class-text mb-2 text-muted">Already a member? <a href="global/login" class="card-link">
+                        Sign In</a></h6>
+            </div>
+        </div>
+    </div>
+
+    <body th:replace="fragments/global :: js"></body>
+    <script th:src="@{/js/create-account.js}"></script>
+</body>
+
+</html>

@@ -29,13 +29,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         final String requestContextPath = request.getContextPath();
 
-        System.out.println(savedRequest);
-        System.out.println(savedRequest.getRedirectUrl());
-
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(auth.getAuthorities());
-        System.out.println("Context path: " + request.getContextPath());
-        // System.out.println("Context path: "+reques);
-        // response.sendRedirect(request.getContextPath() + "/user/view-books");
         if ((!(auth instanceof AnonymousAuthenticationToken))
                 && authorities.get(0).getAuthority().equals(AppConstants.ROLE_PREFIX +
                         AppConstants.USER_ROLE)) {
@@ -63,13 +57,6 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 
             if (savedRequest != null) {
                 redirectUrl = savedRequest.getRedirectUrl();
-                // String[] tmpArr = redirectUrl.split("/");
-                // if(tmpArr.length>=4){
-                //     String tmpUrlPrefix = tmpArr[3];
-                //     if(tmpUrlPrefix.equalsIgnoreCase(AppConstants.ADMIN_ROLE)){
-
-                //     }
-                // }
             }else{
                 switch (roleName) {
                     case AppConstants.ADMIN_ROLE: {
@@ -86,8 +73,6 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
                         break;
                 }
             }
-
-
 
             return redirectUrl;
         } catch (Exception e) {

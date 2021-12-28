@@ -83,7 +83,7 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
     .antMatchers("/global/**").permitAll()
     // .antMatchers("/api/v1/user/login").permitAll()
-    .antMatchers("/api/v1/global/create-account").permitAll()
+    .antMatchers("/api/v1/global/**").permitAll()
     .antMatchers("/user/**","/api/v1/user/**").hasAnyRole(AppConstants.USER_ROLE,AppConstants.ADMIN_ROLE)
     .antMatchers("/admin/**","/api/v1/admin/**").hasRole(AppConstants.ADMIN_ROLE)
     .anyRequest().authenticated()

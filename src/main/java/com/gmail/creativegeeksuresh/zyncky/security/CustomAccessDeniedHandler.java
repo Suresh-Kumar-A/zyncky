@@ -27,6 +27,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(auth.getAuthorities());
         if ((!(auth instanceof AnonymousAuthenticationToken))
+                && authorities.get(0).getAuthority().equals(AppConstants.ROLE_PREFIX + AppConstants.ADMIN_ROLE)) {
+            response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+        }else if ((!(auth instanceof AnonymousAuthenticationToken))
                 && authorities.get(0).getAuthority().equals(AppConstants.ROLE_PREFIX + AppConstants.USER_ROLE)) {
             response.sendRedirect(request.getContextPath() + "/user/dashboard");
         } else {

@@ -5,6 +5,19 @@
  cs - custom (any custom class that we use in css)
 */
 
+:root{
+
+  /* Name: Skobeloff */
+  --cs-color-sko: #14746F !important;
+  /* Name: Dark Siena */
+  --cs-color-ds: #370617 !important;
+  /* Name: Charcoal */
+  --cs-color-ch: #1B3A4B !important;
+  /* Name: Prussian Blue */
+  --cs-color-pb: #212F45 !important;
+
+}
+
 html,
 body {
   height: 100%;
@@ -28,4 +41,13 @@ body {
 .cs-grid-center{
   display: grid;
   place-items: center;
+}
+
+/* // old bootstrap info color */
+/* #17a2b8 */
+
+.cs-btn-info {
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
 }

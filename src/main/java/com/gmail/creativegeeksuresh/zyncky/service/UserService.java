@@ -36,7 +36,10 @@ public class UserService {
     newUser.setUid(customUtils.generateToken());
     newUser.setCreatedAt(new Date());
     newUser.setRoles(List.of(roleService.findByRoleName(AppConstants.USER_ROLE)));
-    return userRepository.save(newUser);
+    User tmp = userRepository.save(newUser);
+    if (tmp != null)
+      tmp.setPassword("");
+    return tmp;
   }
 
   public User findByUsername(String username) throws InvalidUserException, Exception {
@@ -60,16 +63,16 @@ public class UserService {
       throw new InvalidUserException("User does not exists");
   }
 
-  public void createAdminUser(String adminUsername, String adminPassword, String adminEmail) throws Exception {
-    if (userRepository.findByUsername(adminUsername) == null) {
-      User adminUser = new User();
-      adminUser.setUsername(adminUsername);
-      adminUser.setPassword(customUtils.encodeUsingBcryptPasswordEncoder(adminPassword));
-      adminUser.setUid(customUtils.generateToken());
-      adminUser.setCreatedAt(new Date());
-      adminUser.setRoles(List.of(roleService.findByRoleName(AppConstants.ADMIN_ROLE)));
-      userRepository.save(adminUser);
-    }
+  public User createAdminUser(UserDto request) throws Exception {
+    if (userRepository.findByUsername(request.getusername()) != null)
+      throw new UserAlreadyExistsException("User with similar data exists");
+    User adminUser = new User();
+    adminUser.setUsername(request.getusername());
+    adminUser.setPassword(customUtils.encodeUsingBcryptPasswordEncoder(request.getPassword()));
+    adminUser.setUid(customUtils.generateToken());
+    adminUser.setCreatedAt(new Date());
+    adminUser.setRoles(List.of(roleService.findByRoleName(AppConstants.ADMIN_ROLE)));
+    return userRepository.save(adminUser);
   }
 
   public List<User> getAllUsers() throws Exception {

@@ -82,7 +82,7 @@ function disableRegisterButton() {
 }
 
 function createAccount(){
-    disableRegisterButton()
+    disableRegisterButton();
     if(validateStep1Form() && validateStep2Form()){
         var username = document.getElementById("username");
         var password = document.getElementById("password");
@@ -102,18 +102,25 @@ function createAccount(){
             headers: new Headers({ 'content-type': 'application/json' }),
             body: JSON.stringify(user)
         };
-        fetch(apiServerUrl + "/user/create-account", postRequestOptions)
+        fetch(apiServerUrl + "/global/create-account", postRequestOptions)
             .then(response => response.json())
             .then((data) => {
-                console.log(data);
-                showTopSuccessNotificationWithMessageAndAutoReload("Account Created Successfully")
+                // console.log(data);
+                if (data && data.uid)
+                    showTopSuccessNotificationWithMessageAndAutoReload("Account Created Successfully");
+                else if (data)
+                    showTopErrorNotificationWithMessage(data.errorMessage);
+                else
+                    showTopErrorNotificationWithMessage("Unable to create account. Try again")
+
+                showRegisterButton();
             })
             .catch(() => {
                 showTopErrorNotificationWithMessage("Unable to create account. Try again")
+                showRegisterButton();
             })
     }else{
         showTopErrorNotificationWithMessage("Form Validation failed. Try again")
-
+        showRegisterButton();
     }
-    
 }

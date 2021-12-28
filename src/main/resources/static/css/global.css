@@ -21,7 +21,8 @@ body {
 }
 
 .cs-bg-dark{
-  background-color: #30263d !important;
+  /* background-color: #30263d !important; */
+  background-color: #212F45 !important;
 }
 
 .cs-grid-center{

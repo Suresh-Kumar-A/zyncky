@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1")
 public class UserApiController {
   @Autowired
   UserService userService;
@@ -34,7 +34,7 @@ public class UserApiController {
   @Autowired
   CustomJwtService customJwtService;
 
-  @PostMapping(value = "/create-account")
+  @PostMapping(value = "/global/create-account")
   public ResponseEntity<?> createUserAccount(@RequestBody UserDto request) {
     try {
       return new ResponseEntity<>(userService.createUser(request), HttpStatus.CREATED);
@@ -49,7 +49,8 @@ public class UserApiController {
     }
   }
 
-  @PostMapping(value = "/login")
+  // Note: This method is only for testing, delete in production
+  @PostMapping(value = "/login2")
   public ResponseEntity<?> loginUserAccount(@RequestBody UserDto request) {
     try {
       Map<String, Object> response = new HashMap<>();
@@ -85,7 +86,7 @@ public class UserApiController {
     }
   }
 
-  @GetMapping(value = "/view-all")
+  @GetMapping(value = "/admin/view-all")
   public ResponseEntity<?> getAllUsers() {
     try {
       // To get all users with encrypted password use getAllUsers()
@@ -102,7 +103,7 @@ public class UserApiController {
     }
   }
 
-  @GetMapping(value = "/view/{uid}")
+  @GetMapping(value = "/user/view/{uid}")
   public ResponseEntity<?> getUserByUid(@PathVariable(value = "uid") String uid) {
     try {
       // To get user with encrypted password use findByUid()
@@ -123,7 +124,7 @@ public class UserApiController {
     }
   }
 
-  @PatchMapping(value = "/update")
+  @PatchMapping(value = "/user/update")
   public ResponseEntity<?> updateUser(@RequestBody User user) {
     try {
       return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
@@ -138,7 +139,7 @@ public class UserApiController {
     }
   }
 
-  @DeleteMapping(value = "/delete/{uid}")
+  @DeleteMapping(value = "/admin/delete/{uid}")
   public ResponseEntity<?> deleteUserByUid(@PathVariable(value = "uid") String uid) {
     try {
       userService.deleteByUid(uid);
@@ -155,7 +156,8 @@ public class UserApiController {
   }
 
   // Remove this method after tesing
-  @PostMapping(value = "/create-jwt-token")
+  // Note: This method is only for testing, delete in production
+  @PostMapping(value = "/global/create-jwt-token")
   public ResponseEntity<Map<String, Object>> createSignedJwtTokenRequest(@RequestBody Map<String, Object> request) {
     Map<String, Object> response = new HashMap<>();
     try {
@@ -170,7 +172,8 @@ public class UserApiController {
   }
 
   // Remove this method after tesing
-  @PostMapping(value = "/verify-jwt-token")
+  // Note: This method is only for testing, delete in production
+  @PostMapping(value = "/global/verify-jwt-token")
   public ResponseEntity<Map<String, Object>> verifyAndParseJwtToken(@RequestBody Map<String, Object> request) {
     Map<String, Object> response = new HashMap<>();
     try {

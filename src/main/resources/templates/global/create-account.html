@@ -12,7 +12,7 @@
 
 <body>
     <div class="cs-grid-center cs-full-height cs-bg-dark">
-        <div class="card" style="max-width: 28rem;">
+        <div class="card" style="width: 28rem;">
             <div class="card-body pt-2">
                 <form action="#">
                     <div id="step1-div" class="">
@@ -53,8 +53,8 @@
                                 Password and Confirm Password must be same
                             </div>
                         </div>
-                        <h6 class="class-text mb-2 font-monospace">By creating an account, you agree to our <a href="#"
-                                class="card-link">Terms of Service</a></h6>
+                        <!-- <h6 class="class-text mb-2 font-monospace">By creating an account, you agree to our <a href="#"
+                                class="card-link">Terms of Service</a></h6> -->
                         <div class="d-grid">
                             <button class="btn btn-dark font-monospace fw-bold" type="button" onclick="goToStep2()">Next</button>
                         </div>
@@ -102,7 +102,7 @@
                     </div>
                 </form>
                 <hr>
-                <h6 class="class-text mb-2 text-muted">Already a member? <a href="global/login" class="card-link">
+                <h6 class="class-text mb-2 text-muted">Already a member? <a th:href="@{/global/login}" class="card-link">
                         Sign In</a></h6>
             </div>
         </div>

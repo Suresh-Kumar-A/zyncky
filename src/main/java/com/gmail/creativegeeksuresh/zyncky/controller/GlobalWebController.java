@@ -11,7 +11,7 @@ public class GlobalWebController {
 
     @GetMapping(value = "/login")
     public ModelAndView loginPage(){
-        return new ModelAndView("login");
+        return new ModelAndView("global/login");
     }
     
     @GetMapping(value = "/create-account")

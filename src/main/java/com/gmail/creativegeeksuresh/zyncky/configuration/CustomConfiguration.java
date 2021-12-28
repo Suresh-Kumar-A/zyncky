@@ -1,9 +1,10 @@
 package com.gmail.creativegeeksuresh.zyncky.configuration;
 
-import javax.servlet.http.HttpServletResponse;
-
+import com.gmail.creativegeeksuresh.zyncky.security.CustomAccessDeniedHandler;
+import com.gmail.creativegeeksuresh.zyncky.security.CustomAuthSuccessHandler;
 import com.gmail.creativegeeksuresh.zyncky.security.CustomUserDetailsService;
 import com.gmail.creativegeeksuresh.zyncky.service.UserService;
+import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -29,8 +29,11 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
   CustomUserDetailsService userDetailsService;
 
   @Autowired
-  JwtTokenFilter jwtTokenFilter;
-  
+  CustomAccessDeniedHandler accessDeniedHandler;
+
+  @Autowired
+  CustomAuthSuccessHandler authSuccessHandler;
+
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
@@ -57,55 +60,58 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
-    // http.authorizeRequests().antMatchers("/api/v1/user/**").permitAll().anyRequest().authenticated().and().csrf()
-    // .disable().formLogin().loginPage("/login").permitAll().usernameParameter("userName")
-    // .passwordParameter("password").successHandler(authSuccessHandler).failureUrl("/login?accessdenied").and()
-    // .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll().and().exceptionHandling()
-    // .accessDeniedHandler(accessDeniedHandler);
-
     // http.headers().frameOptions().disable();
     // Enable CORS and disable CSRF
     http = http.cors().and().csrf().disable();
 
     // Set session management to stateless
-    http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
+    http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and();
 
     // Set unauthorized requests exception handler
-    http = http
-    .exceptionHandling()
-    .authenticationEntryPoint(
-        (request, response, ex) -> {
-            response.sendError(
-                HttpServletResponse.SC_UNAUTHORIZED,
-                ex.getMessage()
-            );
-        }
-    )
-    .and();
+    // http = http
+    // .exceptionHandling()
+    // .authenticationEntryPoint(
+    //     (request, response, ex) -> {
+    //         response.sendError(
+    //             HttpServletResponse.SC_UNAUTHORIZED,
+    //             ex.getMessage()
+    //         );
+    //     }
+    // )
+    // .and();
+
+    http.authorizeRequests()
+    .antMatchers("/global/**").permitAll()
+    // .antMatchers("/api/v1/user/login").permitAll()
+    .antMatchers("/api/v1/global/create-account").permitAll()
+    .antMatchers("/user/**","/api/v1/user/**").hasAnyRole(AppConstants.USER_ROLE,AppConstants.ADMIN_ROLE)
+    .antMatchers("/admin/**","/api/v1/admin/**").hasRole(AppConstants.ADMIN_ROLE)
+    .anyRequest().authenticated()
+    .and()
+    .formLogin().loginPage("/global/login").permitAll().usernameParameter("username")
+    .passwordParameter("password")
+    .successHandler(authSuccessHandler).failureUrl("/login?accessdenied").and()
+    .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll()
+    .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
     // Set permissions on endpoints
-    http.authorizeRequests()
-    // Our public endpoints
-    .antMatchers("/global/**").permitAll()
-    .antMatchers("/api/v1/user/login").permitAll()
-    .antMatchers("/api/v1/user/create-account").permitAll()
-    // .antMatchers(HttpMethod.GET, "/api/author/**").permitAll()
-    // .antMatchers(HttpMethod.POST, "/api/author/search").permitAll()
-    // .antMatchers(HttpMethod.GET, "/api/book/**").permitAll()
-    // .antMatchers(HttpMethod.POST, "/api/book/search").permitAll()
-    // Our private endpoints
-    .anyRequest().authenticated();
+    // http.authorizeRequests()
+    // // Our public endpoints
+    // .antMatchers("/global/**").permitAll()
+    // .antMatchers("/api/v1/user/login").permitAll()
+    // .antMatchers("/api/v1/user/create-account").permitAll()
+    // // .antMatchers(HttpMethod.GET, "/api/author/**").permitAll()
+    // // .antMatchers(HttpMethod.POST, "/api/author/search").permitAll()
+    // // .antMatchers(HttpMethod.GET, "/api/book/**").permitAll()
+    // // .antMatchers(HttpMethod.POST, "/api/book/search").permitAll()
+    // // Our private endpoints
+    // .anyRequest().authenticated();
 
     // Add JWT token filter
-    http.addFilterBefore(
-      jwtTokenFilter,
-      UsernamePasswordAuthenticationFilter.class
-  );
+  //   http.addFilterBefore(
+  //     jwtTokenFilter,
+  //     UsernamePasswordAuthenticationFilter.class
+  // );
   }
 
-  // private UserDetails getUserDetails()throws Exception{
-  // UserDetails user = new UserDetails(){
-
-  // };
-  // }
 }

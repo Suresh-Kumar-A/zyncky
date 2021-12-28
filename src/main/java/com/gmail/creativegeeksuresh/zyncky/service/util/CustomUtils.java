@@ -32,6 +32,6 @@ public class CustomUtils {
   }
 
   public static String formatRole(String roleName) {
-    return AppConstants.ROLE_STRING + AppConstants.UNDERSCORE + roleName;
+    return AppConstants.ROLE_PREFIX.concat(roleName);
   }
 }

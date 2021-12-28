@@ -35,7 +35,7 @@ public class UserService {
     newUser.setPassword(customUtils.encodeUsingBcryptPasswordEncoder(request.getPassword()));
     newUser.setUid(customUtils.generateToken());
     newUser.setCreatedAt(new Date());
-    newUser.setRoles(List.of(roleService.findByRoleName(AppConstants.USER_ROLE_STRING)));
+    newUser.setRoles(List.of(roleService.findByRoleName(AppConstants.USER_ROLE)));
     return userRepository.save(newUser);
   }
 
@@ -67,7 +67,7 @@ public class UserService {
       adminUser.setPassword(customUtils.encodeUsingBcryptPasswordEncoder(adminPassword));
       adminUser.setUid(customUtils.generateToken());
       adminUser.setCreatedAt(new Date());
-      adminUser.setRoles(List.of(roleService.findByRoleName(AppConstants.ADMIN_ROLE_STRING)));
+      adminUser.setRoles(List.of(roleService.findByRoleName(AppConstants.ADMIN_ROLE)));
       userRepository.save(adminUser);
     }
   }

@@ -6,3 +6,7 @@ function tooglePassword() {
         document.getElementById("password").type = "password"
     }
 }
+
+function toogleMenu() {
+    document.getElementById("sidebar").classList.toggle("active");
+}

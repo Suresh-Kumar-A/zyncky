@@ -19,4 +19,27 @@ public class AdminWebController {
     public ModelAndView profilePage(){
         return new ModelAndView("admin/profile");
     }
+
+    @GetMapping(value = "/my-apps")
+    public ModelAndView myAppsPage(){
+        return new ModelAndView("secure/my-apps");
+    }
+
+    @GetMapping(value = "/view-users")
+    public ModelAndView viewUsersPage(){
+        return new ModelAndView("admin/view-users");
+    }
+    @GetMapping(value = "/add-user")
+    public ModelAndView addUserPage(){
+        return new ModelAndView("admin/add-user");
+    }
+    @GetMapping(value = "/view-apps")
+    public ModelAndView viewAppsPage(){
+        return new ModelAndView("admin/view-apps");
+    }
+    @GetMapping(value = "/add-app")
+    public ModelAndView addAppPage(){
+        return new ModelAndView("admin/add-app");
+    }
+
 }

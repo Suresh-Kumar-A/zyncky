@@ -29,7 +29,7 @@ a:focus {
     background: #fff;
     border: none;
     border-radius: 0;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -71,10 +71,6 @@ a:focus {
 #sidebar .sidebar-header {
     padding: 20px;
     background: var(--cs-color-ch);
-}
-
-#sidebar ul.components {
-    padding: 20px 0;
 }
 
 #sidebar ul p {
@@ -122,17 +118,6 @@ ul ul a {
 }
 
 /* ---------------------------------------------------
-    CONTENT STYLE
------------------------------------------------------ */
-
-#content {
-    width: 100%;
-    padding: 20px;
-    min-height: 100vh;
-    transition: all 0.3s;
-}
-
-/* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
 
@@ -147,3 +132,18 @@ ul ul a {
         display: none;
     }
 }
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#page-content {
+    width: 100%;
+    /* padding: 20px; */
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+/* #main-content {
+    
+} */

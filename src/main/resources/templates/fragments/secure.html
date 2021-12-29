@@ -82,6 +82,10 @@
                 <a href="#"><i class="fas fa-dice-d6"></i> My Apps</a>
             </li>
             <li class="my-2"
+                th:classappend="${#strings.contains(#httpServletRequest.requestURI,'profile')} ? 'active': ''">
+                <a href="#"><i class="fas fa-user-circle"></i> My Profile</a>
+            </li>
+            <li class="my-2"
                 th:classappend="${#strings.contains(#httpServletRequest.requestURI,'about')} ? 'active': ''">
                 <a href="#"><i class="fas fa-info-circle"></i> About</a>
             </li>

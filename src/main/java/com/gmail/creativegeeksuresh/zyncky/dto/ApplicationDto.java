@@ -31,6 +31,6 @@ public class ApplicationDto {
 
     private Date createAt;
 
-    private MfaType mfaType = MfaType.GOOGLE_AUTH;
+    private MfaType mfaType = MfaType.NONE;
 
 }

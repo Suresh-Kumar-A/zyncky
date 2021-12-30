@@ -76,7 +76,7 @@ public class UserService {
     return userRepository.save(adminUser);
   }
 
-  public List<User> getAllUsers() throws Exception {
+  private List<User> getAllUsers() throws Exception {
     return (List<User>) userRepository.findAll();
   }
 
@@ -111,7 +111,7 @@ public class UserService {
       throw new InvalidUserException("User Does not Exists");
   }
 
-  public User updateUser(User user) throws InvalidUserException, Exception {
+  public User updateUser(UserDto user) throws InvalidUserException, Exception {
     User temp = findByUid(user.getUid());
     if (temp != null) {
       if (user.getUsername() != null && user.getUsername().trim() != "") {

@@ -1,28 +1,17 @@
 package com.gmail.creativegeeksuresh.zyncky.service.util;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 public class AppConstants {
 
         public static final String APP_NAME = "Zyncky";
         public static final String APP_PREFIX = "ZKY";
         public static final String APP_DESC = "Default app created to use the functionalities";
         public static final String UNDERSCORE = "_";
-
-        // public static final String ADMIN_ROLE = "ADMIN";
-        // public static final String USER_ROLE = "USER";
         public static final String ROLE_PREFIX = "ROLE_";
-        // public static final Set<String> DEFAULT_ROLE_SET = Collections
-        //                 .unmodifiableSet(new HashSet<>(Arrays.asList(ADMIN_ROLE, USER_ROLE)));
-
         public static final String PRIVATE_KEY_PATH = "security/keys/jwt_privatekey.der";
         public static final String PUBLIC_KEY_PATH = "security/keys/jwt_publickey.der";
 
         public static enum MfaType {
-                GOOGLE_AUTH, OTP, FINGERPRINT
+                NONE, GOOGLE_AUTH, OTP, FINGERPRINT
         }
 
         public static enum UserRole {

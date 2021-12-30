@@ -52,5 +52,5 @@ public class Application {
     private Date createAt;
 
     @Enumerated(EnumType.ORDINAL)
-    private MfaType mfaType = MfaType.GOOGLE_AUTH;
+    private MfaType mfaType = MfaType.NONE;
 }

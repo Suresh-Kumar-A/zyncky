@@ -92,7 +92,7 @@ public class UserApiController {
   public ResponseEntity<?> createSampleAdminUserAccount() {
     try {
       UserDto adminUser = new UserDto();
-      adminUser.setusername("admin");
+      adminUser.setUsername("admin");
       adminUser.setPassword("Rvts123!");
       
       return new ResponseEntity<>(userService.createAdminUser(adminUser), HttpStatus.CREATED);

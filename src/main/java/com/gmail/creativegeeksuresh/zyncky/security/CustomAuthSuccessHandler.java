@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants;
+import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants.UserRole;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,38 +33,40 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(auth.getAuthorities());
         if ((!(auth instanceof AnonymousAuthenticationToken))
                 && authorities.get(0).getAuthority().equals(AppConstants.ROLE_PREFIX +
-                        AppConstants.USER_ROLE)) {
+                        UserRole.USER.toString())) {
             // response.sendRedirect(request.getContextPath() + "/user/view-books");
-            response.sendRedirect(getRedirectUrl(requestCache, savedRequest, requestContextPath, AppConstants.USER_ROLE));
+            response.sendRedirect(
+                getRedirectUrl(requestCache, savedRequest, requestContextPath, UserRole.USER));
 
         } else if ((!(auth instanceof AnonymousAuthenticationToken))
                 && authorities.get(0).getAuthority().equals(AppConstants.ROLE_PREFIX +
-                        AppConstants.ADMIN_ROLE)) {
+                UserRole.ADMIN.toString())) {
             // response.sendRedirect(request.getContextPath() + "/admin/dashboard");
-            response.sendRedirect(getRedirectUrl(requestCache, savedRequest, requestContextPath, AppConstants.ADMIN_ROLE));
+            response.sendRedirect(
+                getRedirectUrl(requestCache, savedRequest, requestContextPath, UserRole.ADMIN));
 
         } else {
             // response.sendRedirect(request.getContextPath() + "/login?access-denied");
-            response.sendRedirect(getRedirectUrl(requestCache, savedRequest, requestContextPath, ""));
+            response.sendRedirect(getRedirectUrl(requestCache, savedRequest, requestContextPath, UserRole.ANONYMOUS));
 
         }
 
     }
 
     private String getRedirectUrl(RequestCache requestCache, SavedRequest savedRequest,
-            String requestContextPath, String roleName) {
+            String requestContextPath, UserRole userRole) {
         try {
             String redirectUrl = requestContextPath.concat("/global/login");
 
             if (savedRequest != null) {
                 redirectUrl = savedRequest.getRedirectUrl();
             }else{
-                switch (roleName) {
-                    case AppConstants.ADMIN_ROLE: {
+                switch (userRole) {
+                    case ADMIN: {
                         redirectUrl = requestContextPath.concat("/admin/dashboard");
                     }
                         break;
-                    case AppConstants.USER_ROLE: {
+                    case USER: {
                         redirectUrl = requestContextPath.concat("/user/dashboard");
                     }
                         break;

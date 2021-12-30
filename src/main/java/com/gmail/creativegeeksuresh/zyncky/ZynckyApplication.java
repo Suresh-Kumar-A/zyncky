@@ -3,6 +3,7 @@ package com.gmail.creativegeeksuresh.zyncky;
 import com.gmail.creativegeeksuresh.zyncky.model.Role;
 import com.gmail.creativegeeksuresh.zyncky.service.RoleService;
 import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants;
+import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants.UserRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,18 +24,17 @@ public class ZynckyApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		// checking if all role exists otherwise adding them
-		
 		if (roleService.getAllRoles().size() == 0) {
-			AppConstants.DEFAULT_ROLE_SET.forEach(roleName -> {
+			for(UserRole userRole: UserRole.values()){
 				try {
 					Role role = new Role();
-					role.setRoleName(roleName);
+					role.setRoleName(userRole.toString());
 					roleService.createRole(role);
 				} catch (Exception e) {
 					System.err.println(e.getLocalizedMessage());
 					e.printStackTrace();
 				}
-			});
+			}
 		}
 	}
 

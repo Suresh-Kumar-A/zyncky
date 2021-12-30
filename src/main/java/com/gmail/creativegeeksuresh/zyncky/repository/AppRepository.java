@@ -10,5 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface AppRepository extends CrudRepository<Application,Integer> {
 
     public User findByAppId(String appId);
+
+    public User findByName(String name);
     
 }

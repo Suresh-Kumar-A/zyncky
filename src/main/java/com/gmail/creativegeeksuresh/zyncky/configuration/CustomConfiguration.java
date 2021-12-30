@@ -4,7 +4,7 @@ import com.gmail.creativegeeksuresh.zyncky.security.CustomAccessDeniedHandler;
 import com.gmail.creativegeeksuresh.zyncky.security.CustomAuthSuccessHandler;
 import com.gmail.creativegeeksuresh.zyncky.security.CustomUserDetailsService;
 import com.gmail.creativegeeksuresh.zyncky.service.UserService;
-import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants;
+import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants.UserRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -81,18 +81,19 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
     // .and();
 
     http.authorizeRequests()
-    .antMatchers("/global/**").permitAll()
-    // .antMatchers("/api/v1/user/login").permitAll()
-    .antMatchers("/api/v1/global/**").permitAll()
-    .antMatchers("/user/**","/api/v1/user/**").hasAnyRole(AppConstants.USER_ROLE,AppConstants.ADMIN_ROLE)
-    .antMatchers("/admin/**","/api/v1/admin/**").hasRole(AppConstants.ADMIN_ROLE)
-    .anyRequest().authenticated()
-    .and()
-    .formLogin().loginPage("/global/login").permitAll().usernameParameter("username")
-    .passwordParameter("password")
-    .successHandler(authSuccessHandler).failureUrl("/login?accessdenied").and()
-    .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll()
-    .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+        .antMatchers("/global/**").permitAll()
+        .antMatchers("/api/v1/app/**").permitAll()
+        .antMatchers("/api/v1/global/**").permitAll()
+        .antMatchers("/user/**", "/api/v1/user/**")
+        .hasAnyRole(UserRole.USER.toString(), UserRole.ADMIN.toString())
+        .antMatchers("/admin/**", "/api/v1/admin/**").hasRole(UserRole.ADMIN.toString())
+        .anyRequest().authenticated()
+        .and()
+        .formLogin().loginPage("/global/login").permitAll()
+        .usernameParameter("username").passwordParameter("password")
+        .successHandler(authSuccessHandler).failureUrl("/global/login?accessdenied").and()
+        .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll()
+        .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
     // Set permissions on endpoints
     // http.authorizeRequests()

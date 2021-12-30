@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants;
+import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants.UserRole;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -27,10 +28,10 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(auth.getAuthorities());
         if ((!(auth instanceof AnonymousAuthenticationToken))
-                && authorities.get(0).getAuthority().equals(AppConstants.ROLE_PREFIX + AppConstants.ADMIN_ROLE)) {
+                && authorities.get(0).getAuthority().equals(AppConstants.ROLE_PREFIX + UserRole.ADMIN.toString())) {
             response.sendRedirect(request.getContextPath() + "/admin/dashboard");
         }else if ((!(auth instanceof AnonymousAuthenticationToken))
-                && authorities.get(0).getAuthority().equals(AppConstants.ROLE_PREFIX + AppConstants.USER_ROLE)) {
+                && authorities.get(0).getAuthority().equals(AppConstants.ROLE_PREFIX + UserRole.USER.toString())) {
             response.sendRedirect(request.getContextPath() + "/user/dashboard");
         } else {
             response.sendRedirect(request.getContextPath() + "/global/login?access-denied");

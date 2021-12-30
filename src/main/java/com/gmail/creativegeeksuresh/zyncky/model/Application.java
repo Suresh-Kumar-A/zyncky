@@ -1,18 +1,28 @@
 package com.gmail.creativegeeksuresh.zyncky.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import java.util.Date;
-import java.util.List;
+import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants.MfaType;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Entity
 @Table(name = "applications")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Application {
 
     @Column
@@ -35,75 +45,12 @@ public class Application {
     @Column(nullable = false)
     private Boolean status = Boolean.TRUE;
 
+    @Column(name = "app_level_mfa", nullable = false)
+    private Boolean appLevelMfa = Boolean.TRUE;
+
     @Column(name = "created_at", nullable = false)
     private Date createAt;
 
-    @ManyToMany
-    List<Role> roles;
-
-    public Integer getSno() {
-        return sno;
-    }
-
-    public void setSno(Integer sno) {
-        this.sno = sno;
-    }
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public String getAppPrefix() {
-        return appPrefix;
-    }
-
-    public void setAppPrefix(String appPrefix) {
-        this.appPrefix = appPrefix;
-    }
-
-    
+    @Enumerated(EnumType.ORDINAL)
+    private MfaType mfaType = MfaType.GOOGLE_AUTH;
 }

@@ -1,4 +1,4 @@
-package com.gmail.creativegeeksuresh.zyncky.service;
+package com.gmail.creativegeeksuresh.zyncky.service.internal;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Book | LibraryApp</title>
+
+    <head th:replace="fragments/general :: css"></head>
+</head>
+
+<body>
+
+    <div th:replace="fragments/admin :: header"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="fragments/admin :: sidebar"></div>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <h1 class="h2 mt-1">Add Book</h1>
+                <hr class="custom-margin">
+                <div class="row">
+                    <div class="col">
+                        <div class="card bg-light" style="width: 35rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Add Book Form</h5>
+                                <form action="#" class="mt-1">
+                                    <div class="row g-2">
+                                        <div class="col-md">
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control" id="title"
+                                                    placeholder="Eg: Wings of Fire" autofocus>
+                                                <label for="title">Title</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control" id="author"
+                                                    placeholder="Eg: Dr.A.P.J Abdul Kalam">
+                                                <label for="author">Author</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        <textarea class="form-control" placeholder="Good book to read" id="description"
+                                            style="height: 70px"></textarea>
+                                        <label for="description">Description</label>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-md">
+                                            <div class="form-floating mb-4">
+                                                <select class="form-select" id="avaliablityStatus"
+                                                    aria-label="Avaliablity Status of Book">
+                                                    <option value="1" selected>Avaliable</option>
+                                                    <option value="2">Unavailable</option>
+                                                </select>
+                                                <label for="avaliablityStatus">Availablity Status</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control" id="publishedYear"
+                                                    placeholder="Eg: 2005">
+                                                <label for="publishedYear">Published Year</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label fw-bold">Select the Book(.pdf)</label>
+                                        <input class="form-control" type="file" id="book" name="book" accept=".pdf">
+                                    </div>
+
+                                    <div class="d-grid">
+                                        <button class="btn btn-success font-monospace fw-bold text-uppercase"
+                                            type="button" onclick="validateData()">Add Book</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <body th:replace="fragments/general :: js"></body>
+    <script>
+        function disableAddBookButton() {
+            document.getElementsByTagName("button")[0].disabled = true
+        }
+
+        function showAddBookButton() {
+            document.getElementsByTagName("button")[0].disabled = false
+        }
+
+        function validateFile() {
+            const selectedFile = document.getElementById('book').files[0];
+            if (typeof selectedFile == "undefined") {
+                console.error("No file selected")
+                return false
+            }
+            else if (selectedFile.type !== "application/pdf") {
+                console.error("Not a .pdf type file")
+                return false
+            }
+            else if (selectedFile.size === 0) {
+                console.error("File is empty")
+                return false;
+            }
+            return true;
+        }
+
+        function validateData() {
+
+            disableAddBookButton()
+            var title = document.getElementById("title");
+            var author = document.getElementById("author");
+            var avaliablityStatus = document.getElementById("avaliablityStatus");
+            var publishedYear = document.getElementById("publishedYear");
+            var bookFile = document.getElementById("book");
+
+            title.classList.remove("is-valid", "is-invalid");
+            author.classList.remove("is-valid", "is-invalid");
+            avaliablityStatus.classList.remove("is-valid", "is-invalid");
+            publishedYear.classList.remove("is-valid", "is-invalid");
+            bookFile.classList.remove("is-valid", "is-invalid");
+
+            if (startWithAlphabet(title.value)) {
+                title.classList.add("is-valid")
+            } else {
+                title.classList.add("is-invalid")
+                showAddBookButton()
+                return;
+            }
+
+            if (startWithAlphabet(author.value)) {
+                author.classList.add("is-valid")
+            } else {
+                author.classList.add("is-invalid")
+                showAddBookButton()
+                return;
+            }
+            avaliablityStatus.classList.add("is-valid")
+
+            if (onlyNumber(publishedYear.value)) {
+                publishedYear.classList.add("is-valid")
+            } else {
+                publishedYear.classList.add("is-invalid")
+                showAddBookButton()
+                return;
+            }
+
+            if (validateFile()) {
+                bookFile.classList.add("is-valid")
+            } else {
+                bookFile.classList.add("is-invalid")
+                showAddBookButton()
+                return;
+            }
+
+            // // Continue with Object Creation
+            var book = {};
+            book.title = title.value;
+            book.author = author.value;
+            book.description = description.value;
+            book.available = (avaliablityStatus.selectedIndex === 0) ? true : false;
+            book.publishedYear = publishedYear.value;
+            book.location = ""
+
+            const selectedFile = document.getElementById('book').files[0];
+            var formData = new FormData()
+            formData.append('book', selectedFile)
+            const postRequestOptions = {
+                method: 'POST',
+                body: formData
+            };
+            fetch(apiServerUrl + "/admin/upload-book", postRequestOptions)
+                .then(response => response.json())
+                .then((data) => {
+                    book.location = data.location
+                    addBook(book)
+                })
+                .catch(() => {
+                    console.error("Unable to upload book")
+                    showAddBookButton()
+                })
+        }
+        function addBook(book) {
+            const postRequestOptions = {
+                method: 'POST',
+                headers: new Headers({ 'content-type': 'application/json' }),
+                body: JSON.stringify(book)
+            };
+            fetch(apiServerUrl + "/admin/add-book", postRequestOptions)
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+                    showTopSuccessNotificationWithMessageAndAutoReload("Book added Successfully")
+                    showAddBookButton()
+                })
+                .catch(() => {
+                    showTopErrorNotificationWithMessage("Unable to add book. Try again")
+                    showAddBookButton()
+                })
+        }
+
+    </script>
+</body>
+
+</html>

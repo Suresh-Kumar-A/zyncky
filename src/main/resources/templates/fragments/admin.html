@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <!-- Header fragments -->
+    <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" th:fragement="header">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fw-bold text-warning fs-4" href="#">Library App</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <h5 class="text-light">Welcome, <span class="mx-2" sec:authentication="name"></span></h5>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link fw-bold text-danger" href="/logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Sign out
+                </a>
+            </li>
+        </ul>
+    </header>
+
+
+
+    <!-- sidebar Fragements -->
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" th:fragment="sidebar">
+        <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link"
+                        th:classappend="${#httpServletRequest.requestURI}=='/admin/dashboard'?'active':''"
+                        aria-current="page" href="/admin/dashboard">
+                        <span style="font-size: 1.2em;" class="mx-1">
+                            <i class="fas fa-home"></i>
+                        </span>
+                        Dashboard
+                    </a>
+                </li>
+                <hr>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        th:classappend="${#httpServletRequest.requestURI}=='/admin/view-users'?'active':''"
+                        href="/admin/view-users">
+                        <span style="font-size: 1.2em;" class="mx-1">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        View Users
+                    </a>
+                </li>
+                <hr>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        th:classappend="${#httpServletRequest.requestURI}=='/admin/view-books'?'active':''"
+                        href="/admin/view-books">
+
+                        <span style="font-size: 1.2em;" class="mx-1">
+                            <i class="fas fa-book"></i>
+                        </span>
+                        View Books
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        th:classappend="${#httpServletRequest.requestURI}=='/admin/add-book'?'active':''"
+                        href="/admin/add-book">
+                        <span style="font-size: 1.2em;" class="mx-1 text-success">
+                            <i class="fas fa-book-medical"></i>
+                        </span>
+                        Add Book
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        th:classappend="${#httpServletRequest.requestURI}=='/admin/unavailable-books'?'active':''"
+                        href="/admin/unavailable-books">
+                        <span style="font-size: 1.2em;" class="mx-1 text-danger">
+                            <i class="fas fa-book-dead"></i>
+                        </span>
+                        Unavailable Books
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        th:classappend="${#httpServletRequest.requestURI}=='/admin/users-book-request'?'active':''"
+                        href="/admin/users-book-request">
+                        <span style="font-size: 1.2em;" class="mx-1 text-info">
+                            <i class="fas fa-book-reader"></i>
+                        </span>
+                        Users Book Request
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+
+</html>

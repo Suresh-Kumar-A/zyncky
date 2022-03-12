@@ -1,8 +1,8 @@
 package com.gmail.creativegeeksuresh.zyncky;
 
+import com.gmail.creativegeeksuresh.zyncky.constants.AppConstants;
 import com.gmail.creativegeeksuresh.zyncky.model.Role;
-import com.gmail.creativegeeksuresh.zyncky.service.RoleService;
-import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants;
+import com.gmail.creativegeeksuresh.zyncky.service.internal.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

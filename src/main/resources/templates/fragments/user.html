@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow-sm" th:fragement="header">
+        <div class="container-fluid mx-3">
+            <a class="navbar-brand p-1" href="#">
+                <img src="/images/logo.png" alt="LibraryApp" width="140" height="26" class="img-thumbnail">
+            </a>
+
+            <div id="menu-items" class="d-flex">
+                <div class="menu-item mx-2">
+                    <div class="dropdown text-uppercase">
+                        <button class="btn btn-secondary text-white dropdown-toggle" type="button"
+                            id="accountsDropDownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="header-dropdown-menu-item text-uppercase">
+                                <i class="fas fa-users-cog"></i> User Accounts</span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="accountsDropDownMenu">
+                            <li><a class="dropdown-item header-dropdown-menu-item" href="#">
+                                    Add User
+                                </a></li>
+                            <li><a class="dropdown-item header-dropdown-menu-item" href="#">
+                                    View Users
+                                </a></li>
+                            <li><a class="dropdown-item header-dropdown-menu-item" href="#">
+                                    Delete User
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="menu-item mx-2">
+                    <div class="dropdown text-uppercase">
+                        <button class="btn btn-secondary text-white dropdown-toggle" type="button" id="bookDropDownMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="header-dropdown-menu-item text-uppercase">
+                                <i class="fas fa-book"></i> Books Catalog</span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="bookDropDownMenu">
+                            <li><a class="dropdown-item header-dropdown-menu-item" href="#">
+                                    Add Book
+                                </a></li>
+                            <li><a class="dropdown-item header-dropdown-menu-item" href="#">
+                                    View Book
+                                </a></li>
+                            <li><a class="dropdown-item header-dropdown-menu-item" href="#">
+                                    Delete Book
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="profile-items">
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary text-white dropdown-toggle" type="button"
+                        id="profileDropDownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/images/avatars/ninja.svg" width="30" height="30" class="" alt="ninja">
+                        <span sec:authentication="name" class="header-dropdown-menu-item"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="profileDropDownMenu">
+                        <li><a class="dropdown-item header-dropdown-menu-item" href="#">
+                                <i class="fas fa-user-circle"></i> My Profile
+                            </a></li>
+                        <li><a class="dropdown-item header-dropdown-menu-item" href="#">
+                                <i class="fas fa-key"></i> Change Password
+                            </a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger header-dropdown-menu-item" href="/logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Sign out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+    <!-- sidebar Fragements -->
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" th:fragment="sidebar">
+        <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link"
+                        th:classappend="${#httpServletRequest.requestURI}=='/user/view-books'?'active':''"
+                        aria-current="page" href="/user/view-books">
+                        <span style="font-size: 1.2em;" class="mx-1">
+                            <i class="fas fa-book"></i>
+                        </span>
+                        View Books
+                    </a>
+                </li>
+                <hr>
+            </ul>
+        </div>
+    </nav>
+</body>
+
+</html>

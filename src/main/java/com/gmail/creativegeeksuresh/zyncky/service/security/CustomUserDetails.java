@@ -1,4 +1,4 @@
-package com.gmail.creativegeeksuresh.zyncky.security;
+package com.gmail.creativegeeksuresh.zyncky.service.security;
 
 import java.util.Collection;
 
@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class CustomUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails, ICustomUserDetails{
 
     private static final long serialVersionUID = 1L;
 
@@ -62,4 +62,13 @@ public class CustomUserDetails implements UserDetails {
         return user.getStatus();
     }
 
+    @Override
+    public String getRoleName() {
+        return user.getRoles().get(0).getRoleName();
+    }
+
+    @Override
+    public String getUid() {
+        return user.getUid();
+    }
 }

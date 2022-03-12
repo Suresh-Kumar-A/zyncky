@@ -1,4 +1,4 @@
-package com.gmail.creativegeeksuresh.zyncky.service.util;
+package com.gmail.creativegeeksuresh.zyncky.constants;
 
 import java.util.Arrays;
 import java.util.Collections;

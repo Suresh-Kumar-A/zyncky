@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Book | LibraryApp</title>
+    <head th:replace="fragments/general :: css"></head>
+</head>
+
+<body>
+
+    <div th:replace="fragments/admin :: header"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="fragments/admin :: sidebar"></div>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <h1 class="h2 mt-1">Edit Book</h1>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div class="card bg-light" style="width: 35rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Add Book Form</h5>
+                                <form action="#" class="mt-1" th:object="${book}">
+                                    <input type="hidden" name="uid" id="uid" th:value="${book.uid}">
+                                    <div class="row g-2">
+                                        <div class="col-md">
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control" id="title"
+                                                    placeholder="Eg: Wings of Fire" autofocus th:value="${book.title}">
+                                                <label for="title">Title</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control" id="author"
+                                                    placeholder="Eg: Dr.A.P.J Abdul Kalam" th:value="${book.author}">
+                                                <label for="author">Author</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        <textarea class="form-control" placeholder="Good book to read" id="description"
+                                            style="height: 70px" th:text="${book.description}"></textarea>
+                                        <label for="description">Description</label>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-md">
+                                            <div class="form-floating mb-4">
+                                                <select class="form-select" id="avaliablityStatus"
+                                                    aria-label="Avaliablity Status of Book">
+                                                    <option value="1" th:selected="${book.available}">Avaliable</option>
+                                                    <option value="2" th:selected="!${book.available}">Unavailable</option>
+                                                </select>
+                                                <label for="avaliablityStatus">Availablity Status</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control" id="publishedYear"
+                                                    placeholder="Eg: 2005" th:value="${book.publishedYear}">
+                                                <label for="publishedYear">Published Year</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary font-monospace fw-bold text-uppercase"
+                                            type="button" onclick="validateData()">Update Book</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <body th:replace="fragments/general :: js"></body>
+    <script>
+        function disableUpdateBookButton() {
+            document.getElementsByTagName("button")[0].disabled = true
+        }
+
+        function showUpdateBookButton() {
+            document.getElementsByTagName("button")[0].disabled = false
+        }
+
+        function validateData() {
+
+            disableUpdateBookButton()
+            var title = document.getElementById("title");
+            var author = document.getElementById("author");
+            var avaliablityStatus = document.getElementById("avaliablityStatus");
+            var publishedYear = document.getElementById("publishedYear");
+
+            title.classList.remove("is-valid", "is-invalid");
+            author.classList.remove("is-valid", "is-invalid");
+            avaliablityStatus.classList.remove("is-valid", "is-invalid");
+            publishedYear.classList.remove("is-valid", "is-invalid");
+
+            if (startWithAlphabet(title.value)) {
+                title.classList.add("is-valid")
+            } else {
+                title.classList.add("is-invalid")
+                showUpdateBookButton()
+                return;
+            }
+
+            if (startWithAlphabet(author.value)) {
+                author.classList.add("is-valid")
+            } else {
+                author.classList.add("is-invalid")
+                showUpdateBookButton()
+                return;
+            }
+
+            if (onlyNumber(publishedYear.value)) {
+                publishedYear.classList.add("is-valid")
+            } else {
+                publishedYear.classList.add("is-invalid")
+                showUpdateBookButton()
+                return;
+            }
+
+            avaliablityStatus.classList.add("is-valid")
+
+            // // Continue with Object Creation
+            var book = {};
+            book.uid=document.getElementById("uid").value
+            book.title = title.value;
+            book.author = author.value;
+            book.description = description.value;
+            book.available = (avaliablityStatus.selectedIndex === 0) ? true : false;
+            book.publishedYear = publishedYear.value;
+
+            const postRequestOptions = {
+                method: 'POST',
+                headers: new Headers({ 'content-type': 'application/json' }),
+                body: JSON.stringify(book)
+            };
+            fetch(apiServerUrl + "/admin/update-book", postRequestOptions)
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+                    showTopSuccessNotificationWithMessageAndAutoReload("Book updated Successfully")
+                })
+                .catch(() => {
+                    showTopErrorNotificationWithMessage("Unable to update book. Try again")
+                })
+        }
+    </script>
+</body>
+
+</html>

@@ -1,16 +1,17 @@
-package com.gmail.creativegeeksuresh.zyncky.service;
+package com.gmail.creativegeeksuresh.zyncky.service.internal;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.gmail.creativegeeksuresh.zyncky.constants.AppConstants;
+import com.gmail.creativegeeksuresh.zyncky.constants.AppRole;
 import com.gmail.creativegeeksuresh.zyncky.dto.UserDto;
 import com.gmail.creativegeeksuresh.zyncky.exception.InvalidCredentialsException;
 import com.gmail.creativegeeksuresh.zyncky.exception.InvalidUserException;
 import com.gmail.creativegeeksuresh.zyncky.exception.UserAlreadyExistsException;
 import com.gmail.creativegeeksuresh.zyncky.model.User;
 import com.gmail.creativegeeksuresh.zyncky.repository.UserRepository;
-import com.gmail.creativegeeksuresh.zyncky.service.util.AppConstants;
 import com.gmail.creativegeeksuresh.zyncky.service.util.CustomUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,19 @@ public class UserService {
     newUser.setPassword(customUtils.encodeUsingBcryptPasswordEncoder(request.getPassword()));
     newUser.setUid(customUtils.generateToken());
     newUser.setCreatedAt(new Date());
-    newUser.setRoles(List.of(roleService.findByRoleName(AppConstants.USER_ROLE_STRING)));
+    newUser.setRoles(List.of(roleService.findByRoleName(AppRole.USER.name())));
+    return userRepository.save(newUser);
+  }
+
+  public User createAdminUser(UserDto request) throws UserAlreadyExistsException, Exception {
+    if (userRepository.findByUsername(request.getusername()) != null)
+      throw new UserAlreadyExistsException("User with similar data exists");
+    User newUser = new User();
+    newUser.setUsername(request.getusername());
+    newUser.setPassword(customUtils.encodeUsingBcryptPasswordEncoder(request.getPassword()));
+    newUser.setUid(customUtils.generateToken());
+    newUser.setCreatedAt(new Date());
+    newUser.setRoles(List.of(roleService.findByRoleName(AppRole.ADMIN.name())));
     return userRepository.save(newUser);
   }
 

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Library App | Icon -->
+    <link rel="icon" href="/images/icon.png" sizes="any" type="image/png">
+    <title>Create Account | LibraryApp</title>
+    <!-- Bootstrap | CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- Roboto Font | Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* important to set the height for full screen height */
+        .custom-full-height {
+            height: 100vh;
+        }
+
+        img {
+            height: 100% !important;
+        }
+
+        input {
+            font-family: 'Roboto' !important;
+        }
+
+        .user-avatars:hover {
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <div class="d-flex justify-content-center align-items-center custom-full-height">
+        <!-- Create Account Form Card | Start -->
+        <div id="step-1-card" class="card px-lg-4 px-md-3" style="max-width: 30rem;">
+            <div class="row g-0">
+                <div class="col">
+                    <div class="card-body">
+                        <img src="/images/logo.png" class="w-50" alt="library app logo">
+                        <h4 class="card-title mt-2">Create Your Account</h4>
+                        <h6 class="card-subtitle text-muted mb-3">Let's Get Started</h6>
+                        <form action="#" class="row">
+                            <div class="col-12 mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="userName"
+                                        placeholder="Eg: suresh_kumar_a" name="userName" autofocus>
+                                    <label class="h6 card-subtitle" for="userName">Username</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="password" placeholder="Eg: P@ss123"
+                                        name="password">
+                                    <label class="h6 card-subtitle" for="password">Password</label>
+                                    <div class="form-check mt-1">
+                                        <input class="form-check-input" type="checkbox" id="showPassword"
+                                            onclick="tooglePassword()">
+                                        <label class="form-check-label h6 card-subtitle" for="showPassword">
+                                            Show password
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-grid mt-3">
+                                <button class="btn btn-success font-monospace fw-bold text-uppercase active"
+                                    type="button" onclick="showStep2()">Next</button>
+                            </div>
+                        </form>
+                        <hr>
+                        <h6 class="card-text">Already a member?
+                            <a href="/login" class="card-link">Sign In</a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-2-card" class="card px-lg-3 px-md-3 d-none" style="max-width: 25rem;">
+            <div class="row g-0">
+                <div class="col">
+                    <div class="card-body">
+                        <img src="/images/logo.png" class="w-50" alt="library app logo">
+                        <h4 class="card-title mt-2">Personalizing Your Profile</h4>
+                        <h6 class="card-subtitle text-muted mb-3">Pick an Avatar</h6>
+                        <form action="#" class="row">
+                            <div class="col-12 text-center my-2">
+                                <img src="/images/avatars/astronaut.svg"
+                                    class="user-avatars rounded-circle  w-25 img-thumbnail shadow" alt="astronaut"
+                                    onclick="selectAvatar(this)">
+                                <img src="/images/avatars/girl.svg"
+                                    class="user-avatars w-25 rounded-circle img-thumbnail mx-2" alt="girl"
+                                    onclick="selectAvatar(this)">
+                                <img src="/images/avatars/gamer.svg"
+                                    class="user-avatars rounded-circle w-25 img-thumbnail" alt="gamer"
+                                    onclick="selectAvatar(this)">
+                            </div>
+                            <div class="col-12 text-center my-3">
+                                <img src="/images/avatars/ninja.svg"
+                                    class="user-avatars rounded-circle w-25 img-thumbnail" alt="ninja"
+                                    onclick="selectAvatar(this)">
+                                <img src="/images/avatars/hacker.png"
+                                    class="user-avatars w-25 rounded-circle img-thumbnail mx-2" alt="hacker"
+                                    onclick="selectAvatar(this)">
+                                <img src="/images/avatars/man.svg"
+                                    class="user-avatars w-25 rounded-circle img-thumbnail" alt="man"
+                                    onclick="selectAvatar(this)">
+                            </div>
+                            <div class="d-grid mt-3">
+                                <button class="btn btn-success font-monospace fw-bold text-uppercase active"
+                                    type="button" onclick="showStep3()">Next</button>
+                            </div>
+                        </form>
+                        <hr>
+                        <h6 class="card-text">Already a member?
+                            <a href="/login" class="card-link">Sign In</a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-3-card" class="card px-lg-4 px-md-3 d-none" style="max-width: 25rem;">
+            <div class="row g-0">
+                <div class="col">
+                    <div class="card-body">
+                        <img src="/images/logo.png" class="w-50" alt="library app logo">
+                        <h4 class="card-title mt-2">Finalizing Your Settings</h4>
+                        <h6 class="card-subtitle text-muted mb-3">Complete your profile info</h6>
+                        <form action="#" class="row">
+                            <div class="col-12 mb-3">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="emailAddress"
+                                        placeholder="Eg: user@gmail.com" name="emailAddress" autofocus>
+                                    <label class="h6 card-subtitle" for="emailAddress">Email address</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-select" id="accountType" aria-label="Account Type Options">
+                                        <option value="1" selected>Reader Account</option>
+                                        <option value="2">Author Account</option>
+                                    </select>
+                                    <label class="h6 card-subtitle" for="accountType">Account
+                                        Type</label>
+                                </div>
+                            </div>
+                            <h6 class="card-text my-2 text-muted">By creating an account, you agree to
+                                our <a href="#" class="card-link">Terms of Service</a></h6>
+                            <div class="d-grid">
+                                <button class="btn btn-success font-monospace fw-bold text-uppercase " type="button"
+                                    onclick="validateData()">Create Account</button>
+                            </div>
+                        </form>
+                        <hr>
+                        <h6 class="card-text">Already a member?
+                            <a href="/global/login" class="card-link">Sign In</a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Account Form Card | End -->
+    </div>
+
+    <body th:replace="fragments/general :: js"></body>
+
+    <script>
+
+        // function toogleUserAvatars(){
+        //     var items=document.getElementsByClassName("user-avatars")
+        //     for(var i=0;i<)
+        // }
+
+        function selectAvatar(item) {
+            var temp = document.getElementsByClassName("user-avatars");
+            for (var i = 0; i < temp.length; i++)
+                temp[i].classList.remove("shadow")
+
+            item.classList.toggle("shadow")
+        }
+
+        function showStep2() {
+            if (validateStep1Form()) {
+                document.getElementById("step-1-card").classList.add("d-none")
+                document.getElementById("step-2-card").classList.remove("d-none")
+                document.getElementById("step-3-card").classList.add("d-none")
+            }
+        }
+        function showStep3() {
+            document.getElementById("step-1-card").classList.add("d-none")
+            document.getElementById("step-2-card").classList.add("d-none")
+            document.getElementById("step-3-card").classList.remove("d-none")
+        }
+
+        function tooglePassword() {
+            var toogleOption = document.getElementById("showPassword");
+            if (toogleOption.checked) {
+                document.getElementById("password").type = "text"
+            } else {
+                document.getElementById("password").type = "password"
+            }
+        }
+
+        function showRegisterButton() {
+            document.getElementsByTagName("button")[0].disabled = false
+        }
+        function disableRegisterButton() {
+            document.getElementsByTagName("button")[0].disabled = true
+        }
+
+        function validateStep1Form() {
+            var userName = document.getElementById("userName");
+            var password = document.getElementById("password");
+
+            userName.classList.remove("is-valid", "is-invalid");
+            password.classList.remove("is-valid", "is-invalid");
+
+
+            if (validateUsername(userName.value))
+                userName.classList.add("is-valid")
+            else {
+                userName.classList.add("is-invalid")
+                return false;
+            }
+
+            if (validatePassword(password.value))
+                password.classList.add("is-valid")
+            else {
+                password.classList.add("is-invalid")
+                return false;
+            }
+
+            return true;
+        }
+
+
+
+        function validateData() {
+
+            disableRegisterButton()
+            var userName = document.getElementById("userName");
+            var password = document.getElementById("password");
+            var email = document.getElementById("emailAddress");
+
+            userName.classList.remove("is-valid", "is-invalid");
+            password.classList.remove("is-valid", "is-invalid");
+            email.classList.remove("is-valid", "is-invalid");
+
+
+            if (validateUsername(userName.value))
+                userName.classList.add("is-valid")
+            else {
+                userName.classList.add("is-invalid")
+                showRegisterButton()
+                return;
+            }
+
+            if (validatePassword(password.value))
+                password.classList.add("is-valid")
+            else {
+                password.classList.add("is-invalid")
+                showRegisterButton()
+                return;
+            }
+
+            if (email.value.length==0 || validateEmail(email.value))
+                email.classList.add("is-valid")
+            else {
+                email.classList.add("is-invalid")
+                showRegisterButton()
+                return;
+            }
+
+
+            // Continue with Account Creation
+            var user = {};
+            user.username = userName.value;
+            user.email = email.value;
+            user.password = password.value;
+
+            const postRequestOptions = {
+                method: 'POST',
+                headers: new Headers({ 'content-type': 'application/json' }),
+                body: JSON.stringify(user)
+            };
+            fetch(apiServerUrl + "/user/create-account", postRequestOptions)
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+                    showTopSuccessNotificationWithMessageAndAutoReload("Account Created Successfully")
+                })
+                .catch(() => {
+                    showTopErrorNotificationWithMessage("Unable to create account. Try again")
+                })
+        }
+
+    </script>
+</body>
+
+</html>

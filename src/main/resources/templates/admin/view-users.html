@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>View Users | LibraryApp</title>
+
+    <head th:replace="fragments/general :: css"></head>
+</head>
+
+<body>
+
+    <div th:replace="fragments/admin :: header"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="fragments/admin :: sidebar"></div>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <h1 class="h2 mt-1">View Users</h1>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-bordered caption-top table-hover">
+                            <caption>List of users</caption>
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th><span data-feather="at-sign"></span> Username</th>
+                                    <th><span data-feather="mail"></span> Email</th>
+                                    <th><span data-feather="activity"></span> Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody th:each="user,loop : ${userList}">
+                                <tr>
+                                    <td th:text="${loop.count}"></td>
+                                    <td th:text="${user.username}"></td>
+                                    <td th:text="${user.email}"></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger"
+                                            th:attr="onclick=|deleteUser('${user.username}')|">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <body th:replace="fragments/general :: js"></body>
+    <script>
+        function deleteUser(username) {
+            const postRequestOptions = {
+                method: 'POST'
+            };
+            fetch(apiServerUrl + "/admin/delete-user?username=" + username, postRequestOptions)
+                .then(response => response.json())
+                .then((data) => {
+                    // console.log(data);
+                    showTopSuccessNotificationWithMessageAndAutoReload("User Account Deleted successfully")
+                })
+                .catch(() => {
+                    console.error("unable to Delete User");
+                    showTopErrorNotificationWithMessage("Unable to delete user account. Try again")
+                })
+        }
+    </script>
+</body>
+
+</html>

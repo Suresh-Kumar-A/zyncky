@@ -10,7 +10,7 @@ import com.gmail.creativegeeksuresh.zyncky.exception.InvalidCredentialsException
 import com.gmail.creativegeeksuresh.zyncky.exception.InvalidUserException;
 import com.gmail.creativegeeksuresh.zyncky.exception.UserAlreadyExistsException;
 import com.gmail.creativegeeksuresh.zyncky.model.User;
-import com.gmail.creativegeeksuresh.zyncky.service.UserService;
+import com.gmail.creativegeeksuresh.zyncky.service.internal.UserService;
 import com.gmail.creativegeeksuresh.zyncky.service.util.CustomJwtService;
 
 import org.springframework.beans.factory.annotation.Autowired;

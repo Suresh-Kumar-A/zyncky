@@ -1,9 +1,9 @@
 package com.gmail.creativegeeksuresh.zyncky.configuration;
 
-import javax.servlet.http.HttpServletResponse;
-
-import com.gmail.creativegeeksuresh.zyncky.security.CustomUserDetailsService;
-import com.gmail.creativegeeksuresh.zyncky.service.UserService;
+import com.gmail.creativegeeksuresh.zyncky.constants.AppRole;
+import com.gmail.creativegeeksuresh.zyncky.service.security.CustomAccessDeniedHandler;
+import com.gmail.creativegeeksuresh.zyncky.service.security.CustomAuthSuccessHandler;
+import com.gmail.creativegeeksuresh.zyncky.service.security.CustomUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,23 +14,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class CustomConfiguration extends WebSecurityConfigurerAdapter {
+  @Autowired
+  CustomUserDetailsService customUserDetailService;
 
   @Autowired
-  UserService userService;
+  CustomAccessDeniedHandler accessDeniedHandler;
 
   @Autowired
-  CustomUserDetailsService userDetailsService;
+  CustomAuthSuccessHandler authSuccessHandler;
 
-  @Autowired
-  JwtTokenFilter jwtTokenFilter;
-  
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
@@ -39,7 +36,7 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-    authProvider.setUserDetailsService(userDetailsService);
+    authProvider.setUserDetailsService(customUserDetailService);
     authProvider.setPasswordEncoder(passwordEncoder());
     return authProvider;
   }
@@ -56,55 +53,28 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-
-    // http.authorizeRequests().antMatchers("/api/v1/user/**").permitAll().anyRequest().authenticated().and().csrf()
-    // .disable().formLogin().loginPage("/login").permitAll().usernameParameter("userName")
-    // .passwordParameter("password").successHandler(authSuccessHandler).failureUrl("/login?accessdenied").and()
-    // .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll().and().exceptionHandling()
+    // http.authorizeRequests().antMatchers("/admin/**",
+    // "/api/v1/admin/**").hasRole(AppConstants.ADMIN_ROLE_STRING)
+    // .antMatchers("/user/**", "/api/v1/user/**", "/api/v1/get-all-books")
+    // .hasAnyRole(AppConstants.USER_ROLE_STRING, AppConstants.ADMIN_ROLE_STRING)
+    // .antMatchers("/", "/login", "/create-account",
+    // "/api/v1/create-account", "/error/**")
+    // .permitAll().anyRequest()
+    // .authenticated().and().csrf().disable().formLogin().loginPage("/login").permitAll()
+    // .usernameParameter("userName").passwordParameter("password").successHandler(authSuccessHandler)
+    // .failureUrl("/login?accessdenied").and().logout().invalidateHttpSession(true)
+    // .deleteCookies("JSESSIONID").permitAll().and().exceptionHandling()
     // .accessDeniedHandler(accessDeniedHandler);
 
-    // http.headers().frameOptions().disable();
-    // Enable CORS and disable CSRF
-    http = http.cors().and().csrf().disable();
-
-    // Set session management to stateless
-    http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
-
-    // Set unauthorized requests exception handler
-    http = http
-    .exceptionHandling()
-    .authenticationEntryPoint(
-        (request, response, ex) -> {
-            response.sendError(
-                HttpServletResponse.SC_UNAUTHORIZED,
-                ex.getMessage()
-            );
-        }
-    )
-    .and();
-
-    // Set permissions on endpoints
     http.authorizeRequests()
-    // Our public endpoints
-    .antMatchers("/api/v1/user/login").permitAll()
-    .antMatchers("/api/v1/user/create-account").permitAll()
-    // .antMatchers(HttpMethod.GET, "/api/author/**").permitAll()
-    // .antMatchers(HttpMethod.POST, "/api/author/search").permitAll()
-    // .antMatchers(HttpMethod.GET, "/api/book/**").permitAll()
-    // .antMatchers(HttpMethod.POST, "/api/book/search").permitAll()
-    // Our private endpoints
-    .anyRequest().authenticated();
+        .antMatchers("/global/**", "/", "/error/**","/api/v1/user/create-account").permitAll()
+        .antMatchers("/admin/**", "/api/v1/admin/**").hasRole(AppRole.ADMIN.name())
+        .antMatchers("/user/**", "/api/v1/user/**").hasRole(AppRole.USER.name())
+        .anyRequest().authenticated().and().csrf().disable()
+        .formLogin().loginPage("/global/login").usernameParameter("username").passwordParameter("password")
+        .successHandler(authSuccessHandler).failureUrl("/global/login?access-denied").and()
+        .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll().and()
+        .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
-    // Add JWT token filter
-    http.addFilterBefore(
-      jwtTokenFilter,
-      UsernamePasswordAuthenticationFilter.class
-  );
   }
-
-  // private UserDetails getUserDetails()throws Exception{
-  // UserDetails user = new UserDetails(){
-
-  // };
-  // }
 }

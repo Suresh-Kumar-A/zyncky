@@ -1,8 +1,7 @@
-package com.gmail.creativegeeksuresh.zyncky.security;
-
+package com.gmail.creativegeeksuresh.zyncky.service.security;
 
 import com.gmail.creativegeeksuresh.zyncky.model.User;
-import com.gmail.creativegeeksuresh.zyncky.service.UserService;
+import com.gmail.creativegeeksuresh.zyncky.service.internal.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

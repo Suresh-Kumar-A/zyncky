@@ -38,14 +38,4 @@ public class GlobalPageController {
         return mv;
     }
 
-    @GetMapping(value = "/error/page-unavailable")
-    public ModelAndView pageUnavailablePage() {
-        return new ModelAndView("error/page-not-found");
-    }
-
-    @GetMapping(value = "/error/internal-server-error")
-    public ModelAndView internalServerErrorPage() {
-        return new ModelAndView("error/internal-server-error");
-    }
-
 }

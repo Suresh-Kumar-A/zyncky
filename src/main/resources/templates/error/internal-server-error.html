@@ -4,49 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>500 | LibraryApp</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-   <!-- Bootstrap | CSS -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-   integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <style>
-        .custom-mb-5 {
-            margin-bottom: 2rem !important;
-        }
-
-        .custom-heading-1{
-            font-size: 6rem;
-        }
-
-        body,.card {
-            background-color: #f7f9fc;
-        }
-    </style>
+    <link rel="icon" href="/images/icon.png" sizes="any" type="image/png">
+    <title>Service Unavilable</title>
+    <head th:replace="fragments/general :: css"></head>
 </head>
 
-<body>
-
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-6 mx-auto align-self-center">
-                <div class="card mt-5 border-0" style="width: 35rem;">
+<body class="cs-bg">
+    <div class="d-flex justify-content-center align-items-center custom-full-height">
+        <!-- Login Form Card | Start -->
+        <div class="card" style="width: 30rem;">
+            <div class="row g-0">
+                <div class="col">
                     <div class="card-body">
-                        <h1 class="card-title text-center custom-heading-1">500</h1>
-                        <h2 class="card-title text-center text-muted my-1 font-monospace">Internal Server Error</h2>
-                        <h4 class="card-subtitle text-muted my-4 text-center">The server encountered something unexpected that didn't allow it to complete the request.</h4>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-lg active btn-primary text-center" role="button">Return to Website</a>
+                        <div class="text-center position-absolute top-0 start-50 translate-middle">
+                            <img src="/images/icon.png" class="w-50" alt="library app logo">
+                        </div>
+                        <h1 class="card-title text-center mt-5">500</h1>
+                        <h3 class="card-subtitle my-2 text-center">Internal Server Error</h3>
+                        <h6 class="card-subtitle text-muted mt-3 text-center">The server encountered something unexpected that didn't allow it to complete the request.</h6>
+                        <h6 class="card-subtitle text-muted mt-3 text-center">Go back to Home page to continue using the Application</h6>
+                            
+                        <hr>
+                        <div class="d-grid">
+                            <a href="/global/login" class="btn cs-btn-info font-monospace fw-bold text-uppercase">Return to Sign In</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Login Form Card | End -->
     </div>
 
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"></script>
+    <body th:replace="fragments/general :: js"></body>
 </body>
 
 </html>

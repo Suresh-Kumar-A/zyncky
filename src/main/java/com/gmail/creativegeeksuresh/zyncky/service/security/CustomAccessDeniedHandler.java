@@ -28,15 +28,17 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(auth.getAuthorities());
 
-        if(auth instanceof AnonymousAuthenticationToken){
+        if (auth instanceof AnonymousAuthenticationToken) {
             response.sendRedirect(request.getContextPath() + "/global/login?access-denied");
-        }else{
+        } else {
             final String obtainedRole = authorities.get(0).getAuthority();
-            if(obtainedRole.equals(CustomUtils.formatRole(AppRole.ADMIN.name()))){
+            if (obtainedRole.equals(CustomUtils.formatRole(AppRole.ADMIN.name()))) {
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
-            }else if(obtainedRole.equals(CustomUtils.formatRole(AppRole.USER.name()))){
+            } else if (obtainedRole.equals(CustomUtils.formatRole(AppRole.USER.name()))) {
                 response.sendRedirect(request.getContextPath() + "/user/profile");
-            }else{
+            } else if (obtainedRole.equals(CustomUtils.formatRole(AppRole.MFA.name()))) {
+                response.sendRedirect(request.getContextPath() + "/mfa/secret-code");
+            } else {
                 response.sendRedirect(request.getContextPath() + "/global/login?unknown-role");
             }
         }

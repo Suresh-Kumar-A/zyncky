@@ -51,3 +51,7 @@ body {
   background-color: #335c67;
   border-color: #335c67;
 }
+
+.cs-bg-light{
+  background-color: #dee2e6 !important;
+}

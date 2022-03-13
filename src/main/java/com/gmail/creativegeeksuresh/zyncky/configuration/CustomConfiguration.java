@@ -67,7 +67,7 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
     // .accessDeniedHandler(accessDeniedHandler);
 
     http.authorizeRequests()
-        .antMatchers("/global/**", "/", "/error/**","/api/v1/user/create-account").permitAll()
+        .antMatchers("/global/**", "/", "/error/**","/api/v1/global/**").permitAll()
         .antMatchers("/admin/**", "/api/v1/admin/**").hasRole(AppRole.ADMIN.name())
         .antMatchers("/user/**", "/api/v1/user/**").hasRole(AppRole.USER.name())
         .anyRequest().authenticated().and().csrf().disable()

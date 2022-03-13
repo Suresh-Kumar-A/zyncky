@@ -34,21 +34,6 @@ public class UserApiController {
   @Autowired
   CustomJwtService customJwtService;
 
-  @PostMapping(value = "/create-account")
-  public ResponseEntity<?> createUserAccount(@RequestBody UserDto request) {
-    try {
-      return new ResponseEntity<>(userService.createUser(request), HttpStatus.CREATED);
-    } catch (UserAlreadyExistsException uaex) {
-      System.err.println(uaex.getLocalizedMessage());
-      return new ResponseEntity<>(new CustomErrorResponse(HttpStatus.CONFLICT.value(), uaex.getLocalizedMessage(), ""),
-          HttpStatus.CONFLICT);
-    } catch (Exception ex) {
-      System.err.println(ex.getLocalizedMessage());
-      return new ResponseEntity<>(new CustomErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(), ""),
-          HttpStatus.BAD_REQUEST);
-    }
-  }
-
   @PostMapping(value = "/login")
   public ResponseEntity<?> loginUserAccount(@RequestBody UserDto request) {
     try {

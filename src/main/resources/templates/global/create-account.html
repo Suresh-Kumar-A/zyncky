@@ -22,7 +22,7 @@
                         </div>
                         <h5 class="card-title text-center" id="card-title">Create Your Account</h5>
                         <h6 class="card-subtitle text-muted my-1 text-center" id="card-subtitile">Let's Get Started</h6>
-                        <form action="/global/login" method="POST" class="mt-1 row" onsubmit="validateSignInFormData();">
+                        <form action="#" method="POST" class="mt-1 row">
                             <!-- Step progress bar | Start-->
                             <div class="position-relative my-4 mx-4 cs-w-90">
                                 <div class="progress" style="height: 1px;">
@@ -294,7 +294,7 @@
                 headers: new Headers({ 'content-type': 'application/json' }),
                 body: JSON.stringify(user)
             };
-            fetch(apiServerUrl + "/user/create-account", postRequestOptions)
+            fetch(apiServerUrl + "/global/create-account", postRequestOptions)
                 .then(response => response.json())
                 .then((data) => {
                     console.log(data);

@@ -27,30 +27,14 @@ public class GlobalPageController {
         return new ModelAndView("global/create-account");
     }
 
-    // @GetMapping(value = "/user/view-books")
-    // public ModelAndView viewBooksUserPage() {
-    //     ModelAndView mv = new ModelAndView("user/view-books");
-    //     mv.addObject("bookList", bookService.getAllBooks());
-    //     return mv;
-    // }
+    @GetMapping(value = "/global/reset-password")
+    public ModelAndView resetPasswordPage() {
+        return new ModelAndView("global/reset-password");
+    }
 
     @GetMapping(value = "/admin/dashboard")
     public ModelAndView adminDashboardPage() {
         ModelAndView mv = new ModelAndView("admin/dashboard");
-        return mv;
-    }
-
-    // @GetMapping(value = "/admin/view-users")
-    // public ModelAndView viewUsersPage() {
-    //     ModelAndView mv = new ModelAndView("admin/view-users");
-    //     mv.addObject("userList", userService.getAllUsers());
-    //     return mv;
-    // }
-
-    @GetMapping(value = "/admin/add-book")
-    public ModelAndView addBookPage() {
-        ModelAndView mv = new ModelAndView("admin/add-book");
-
         return mv;
     }
 

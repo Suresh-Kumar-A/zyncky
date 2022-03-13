@@ -50,3 +50,11 @@ input {
 .cs-mt-5 {
   margin-top: 2rem !important;
 }
+
+.cs-is-valid{
+  border-color: #198754;
+}
+
+.cs-is-invalid{
+  border-color: #dc3545;
+}

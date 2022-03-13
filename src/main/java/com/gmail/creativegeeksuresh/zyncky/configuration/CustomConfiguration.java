@@ -53,23 +53,11 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    // http.authorizeRequests().antMatchers("/admin/**",
-    // "/api/v1/admin/**").hasRole(AppConstants.ADMIN_ROLE_STRING)
-    // .antMatchers("/user/**", "/api/v1/user/**", "/api/v1/get-all-books")
-    // .hasAnyRole(AppConstants.USER_ROLE_STRING, AppConstants.ADMIN_ROLE_STRING)
-    // .antMatchers("/", "/login", "/create-account",
-    // "/api/v1/create-account", "/error/**")
-    // .permitAll().anyRequest()
-    // .authenticated().and().csrf().disable().formLogin().loginPage("/login").permitAll()
-    // .usernameParameter("userName").passwordParameter("password").successHandler(authSuccessHandler)
-    // .failureUrl("/login?accessdenied").and().logout().invalidateHttpSession(true)
-    // .deleteCookies("JSESSIONID").permitAll().and().exceptionHandling()
-    // .accessDeniedHandler(accessDeniedHandler);
-
     http.authorizeRequests()
         .antMatchers("/global/**", "/", "/error/**","/api/v1/global/**").permitAll()
         .antMatchers("/admin/**", "/api/v1/admin/**").hasRole(AppRole.ADMIN.name())
         .antMatchers("/user/**", "/api/v1/user/**").hasRole(AppRole.USER.name())
+        .antMatchers("/mfa/**", "/", "/api/v1/mfa/**").permitAll()
         .anyRequest().authenticated().and().csrf().disable()
         .formLogin().loginPage("/global/login").usernameParameter("username").passwordParameter("password")
         .successHandler(authSuccessHandler).failureUrl("/global/login?access-denied").and()

@@ -10,122 +10,118 @@
 
 <body class="cs-bg">
     <div class="d-flex justify-content-center align-items-center custom-full-height">
-        <!-- Login Form Card | Start -->
+        <!-- Create Account Form Card | Start -->
         <div class="card" style="width: 26rem;">
-            <div class="row g-0">
-                <div class="col">
-                    <div class="card-body">
-                        <div class="text-center position-absolute top-0 start-50 translate-middle">
-                            <img src="/images/icon.png" class="w-50" alt="library app logo">
-                        </div>
-                        <h5 class="card-title text-center cs-mt-5" id="card-title">Create Your Account</h5>
-                        <h6 class="card-subtitle text-muted my-1 text-center" id="card-subtitile">Let's Get Started</h6>
-                        <form action="#" method="POST" class="mt-1 row">
-                            <!-- Step progress bar | Start-->
-                            <div class="position-relative my-4 mx-4 cs-w-90">
-                                <div class="progress" style="height: 1px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="50" aria-valuemin="0"
-                                        aria-valuemax="100" id="step-progress-bar"></div>
-                                </div>
-                                <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill"
-                                    style="width: 2rem; height:2rem;" onclick="showStep1()" id="spb-btn-1">1</button>
-                                <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill"
-                                    style="width: 2rem; height:2rem;" onclick="showStep2()" id="spb-btn-2">2</button>
-                                <button type="button"
-                                    class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill"
-                                    style="width: 2rem; height:2rem;" onclick="showStep3()" id="spb-btn-3">3</button>
-                            </div>
-                            <!-- Step progress bar | End-->
-
-                            <div id="step-1-content">
-                                <div class="col-12 mb-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="username"
-                                            placeholder="Eg: suresh_kumar_a" name="username" autofocus>
-                                        <label class="h6 card-subtitle" for="username">Username</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Eg: P@ss123"
-                                            name="password">
-                                        <label class="h6 card-subtitle" for="password">Password</label>
-                                        <div class="form-check mt-1">
-                                            <input class="form-check-input" type="checkbox" id="showPassword"
-                                                onclick="tooglePassword()">
-                                            <label class="form-check-label h6 card-subtitle" for="showPassword">
-                                                Show password
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-grid mt-3">
-                                    <button class="btn cs-btn-info font-monospace fw-bold text-uppercase active"
-                                        type="button" onclick="validateStep1Form() && showStep2()">Next</button>
-                                </div>
-                            </div>
-
-                            <div id="step-2-content" class="d-none">
-                                <div class="col-12 mb-3">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control" id="email-id"
-                                            placeholder="Eg: user@gmail.com" name="email-id" autofocus>
-                                        <label class="h6 card-subtitle" for="email-id">Email Id</label>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="display-name"
-                                            placeholder="Eg: Suresh Kumar" name="display-name">
-                                        <label class="h6 card-subtitle" for="display-name">Display Name</label>
-                                    </div>
-                                </div>
-                                <div class="d-grid mt-3">
-                                    <button class="btn cs-btn-info font-monospace fw-bold text-uppercase active"
-                                        type="button" onclick="validateStep2Form() && validateStep1Form() && showStep3()">Next</button>
-                                </div>
-                            </div>
-
-                            <div id="step-3-content" class="d-none">
-                                <div class="col-12 text-center my-2">
-                                    <img src="/images/avatars/astronaut.svg"
-                                        class="user-avatars rounded-circle  w-25 img-thumbnail cs-selected-avatar" alt="astronaut"
-                                        onclick="selectAvatar(this)">
-                                    <img src="/images/avatars/girl.svg"
-                                        class="user-avatars w-25 rounded-circle img-thumbnail mx-2" alt="girl"
-                                        onclick="selectAvatar(this)">
-                                    <img src="/images/avatars/gamer.svg"
-                                        class="user-avatars rounded-circle w-25 img-thumbnail" alt="gamer"
-                                        onclick="selectAvatar(this)">
-                                </div>
-                                <div class="col-12 text-center my-3">
-                                    <img src="/images/avatars/ninja.svg"
-                                        class="user-avatars rounded-circle w-25 img-thumbnail" alt="ninja"
-                                        onclick="selectAvatar(this)">
-                                    <img src="/images/avatars/hacker.png"
-                                        class="user-avatars w-25 rounded-circle img-thumbnail mx-2" alt="hacker"
-                                        onclick="selectAvatar(this)">
-                                    <img src="/images/avatars/man.svg"
-                                        class="user-avatars w-25 rounded-circle img-thumbnail" alt="man"
-                                        onclick="selectAvatar(this)">
-                                </div>
-                                <h6 class="card-text my-2 text-muted">By creating an account, you agree to
-                                    our <a href="#" class="card-link">Terms of Service</a></h6>
-                                <div class="d-grid">
-                                    <button class="btn btn-success font-monospace fw-bold text-uppercase " type="button"
-                                        onclick="validateData()" id="btn-create-account">Create Account</button>
-                                </div>
-                            </div>
-                        </form>
-                        <hr>
-                        <h6 class="card-text">Already a member?
-                            <a href="/global/login" class="card-link">Sign In</a>
-                        </h6>
-                    </div>
+            <div class="card-body">
+                <div class="text-center position-absolute top-0 start-50 translate-middle">
+                    <img src="/images/icon.png" class="w-50" alt="library app logo">
                 </div>
+                <h5 class="card-title text-center cs-mt-5" id="card-title">Create Your Account</h5>
+                <h6 class="card-subtitle text-muted my-1 text-center" id="card-subtitile">Let's Get Started</h6>
+                <form action="#" method="POST" class="mt-1 row">
+                    <!-- Step progress bar | Start-->
+                    <div class="position-relative my-4 mx-4 cs-w-90">
+                        <div class="progress" style="height: 1px;">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="50" aria-valuemin="0"
+                                aria-valuemax="100" id="step-progress-bar"></div>
+                        </div>
+                        <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill"
+                            style="width: 2rem; height:2rem;" onclick="showStep1()" id="spb-btn-1">1</button>
+                        <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill"
+                            style="width: 2rem; height:2rem;" onclick="showStep2()" id="spb-btn-2">2</button>
+                        <button type="button"
+                            class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill"
+                            style="width: 2rem; height:2rem;" onclick="showStep3()" id="spb-btn-3">3</button>
+                    </div>
+                    <!-- Step progress bar | End-->
+
+                    <div id="step-1-content">
+                        <div class="col-12 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="username"
+                                    placeholder="Eg: suresh_kumar_a" name="username" autofocus>
+                                <label class="h6 card-subtitle" for="username">Username</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="password" class="form-control" id="password" placeholder="Eg: P@ss123"
+                                    name="password">
+                                <label class="h6 card-subtitle" for="password">Password</label>
+                                <div class="form-check mt-1">
+                                    <input class="form-check-input" type="checkbox" id="showPassword"
+                                        onclick="tooglePassword()">
+                                    <label class="form-check-label h6 card-subtitle" for="showPassword">
+                                        Show password
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button class="btn cs-btn-info font-monospace fw-bold text-uppercase active"
+                                type="button" onclick="validateStep1Form() && showStep2()">Next</button>
+                        </div>
+                    </div>
+
+                    <div id="step-2-content" class="d-none">
+                        <div class="col-12 mb-3">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="email-id"
+                                    placeholder="Eg: user@gmail.com" name="email-id" autofocus>
+                                <label class="h6 card-subtitle" for="email-id">Email Id</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="display-name"
+                                    placeholder="Eg: Suresh Kumar" name="display-name">
+                                <label class="h6 card-subtitle" for="display-name">Display Name</label>
+                            </div>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button class="btn cs-btn-info font-monospace fw-bold text-uppercase active"
+                                type="button" onclick="validateStep2Form() && validateStep1Form() && showStep3()">Next</button>
+                        </div>
+                    </div>
+
+                    <div id="step-3-content" class="d-none">
+                        <div class="col-12 text-center my-2">
+                            <img src="/images/avatars/astronaut.svg"
+                                class="user-avatars rounded-circle  w-25 img-thumbnail cs-selected-avatar" alt="astronaut"
+                                onclick="selectAvatar(this)">
+                            <img src="/images/avatars/girl.svg"
+                                class="user-avatars w-25 rounded-circle img-thumbnail mx-2" alt="girl"
+                                onclick="selectAvatar(this)">
+                            <img src="/images/avatars/gamer.svg"
+                                class="user-avatars rounded-circle w-25 img-thumbnail" alt="gamer"
+                                onclick="selectAvatar(this)">
+                        </div>
+                        <div class="col-12 text-center my-3">
+                            <img src="/images/avatars/ninja.svg"
+                                class="user-avatars rounded-circle w-25 img-thumbnail" alt="ninja"
+                                onclick="selectAvatar(this)">
+                            <img src="/images/avatars/hacker.png"
+                                class="user-avatars w-25 rounded-circle img-thumbnail mx-2" alt="hacker"
+                                onclick="selectAvatar(this)">
+                            <img src="/images/avatars/man.svg"
+                                class="user-avatars w-25 rounded-circle img-thumbnail" alt="man"
+                                onclick="selectAvatar(this)">
+                        </div>
+                        <h6 class="card-text my-2 text-muted">By creating an account, you agree to
+                            our <a href="#" class="card-link">Terms of Service</a></h6>
+                        <div class="d-grid">
+                            <button class="btn btn-success font-monospace fw-bold text-uppercase " type="button"
+                                onclick="validateData()" id="btn-create-account">Create Account</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <h6 class="card-text">Already a member?
+                    <a href="/global/login" class="card-link">Sign In</a>
+                </h6>
             </div>
         </div>
-        <!-- Login Form Card | End -->
+        <!-- Create Account Form Card | End -->
     </div>
 
     <body th:replace="fragments/general :: js"></body>

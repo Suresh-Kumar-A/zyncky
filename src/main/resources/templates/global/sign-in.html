@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In | Zyncky</title>
+
     <head th:replace="fragments/general :: css"></head>
 </head>
 
@@ -12,50 +13,46 @@
     <div class="d-flex justify-content-center align-items-center custom-full-height">
         <!-- Login Form Card | Start -->
         <div class="card" style="max-width: 25rem;">
-            <div class="row g-0">
-                <div class="col">
-                    <div class="card-body">
-                        <div class="text-center position-absolute top-0 start-50 translate-middle">
-                            <img src="/images/icon.png" class="w-50" alt="library app logo">
-                        </div>
-                        <h5 class="card-title text-center cs-mt-5">Sign in</h5>
-                        <h6 class="card-subtitle text-muted my-1 text-center">Use your account to continue</h6>
-                        <form action="/global/login" method="POST" class="mt-3 row" onsubmit="validateSignInFormData();">
-                            <div class="col-12 mb-3">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="userName"
-                                        placeholder="Eg: suresh_kumar_a" name="username" autofocus>
-                                    <label class="h6 card-subtitle" for="userName">Username</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="password" placeholder="Eg: P@ss123"
-                                        name="password">
-                                    <label class="h6 card-subtitle" for="password">Password</label>
-                                    <div class="form-check mt-1">
-                                        <input class="form-check-input" type="checkbox" id="showPassword"
-                                            onclick="tooglePassword()">
-                                        <label class="form-check-label h6 card-subtitle" for="showPassword">
-                                            Show password
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-grid">
-                                <button class="btn cs-btn-sign-in font-monospace fw-bold text-uppercase" type="submit">Sign
-                                    In</button>
-                            </div>
-                        </form>
-                        <div class="d-flex mt-2 h6 flex-row-reverse">
-                            <a href="/global/reset-password" class="card-link text-black-50">Forgot your Password?</a>
-                        </div>
-                        <hr>
-                        <h6 class="card-text mb-2">Not a member?
-                            <a href="/global/create-account" class="card-link">Create Account</a>
-                        </h6>
-                    </div>
+            <div class="card-body">
+                <div class="text-center position-absolute top-0 start-50 translate-middle">
+                    <img src="/images/icon.png" class="w-50" alt="library app logo">
                 </div>
+                <h5 class="card-title text-center cs-mt-5">Sign in</h5>
+                <h6 class="card-subtitle text-muted my-1 text-center">Use your account to continue</h6>
+                <form action="/global/login" method="POST" class="mt-3 row" onsubmit="validateSignInFormData();">
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="userName" placeholder="Eg: suresh_kumar_a"
+                                name="username" autofocus>
+                            <label class="h6 card-subtitle" for="userName">Username</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="password" placeholder="Eg: P@ss123"
+                                name="password">
+                            <label class="h6 card-subtitle" for="password">Password</label>
+                            <div class="form-check mt-1">
+                                <input class="form-check-input" type="checkbox" id="showPassword"
+                                    onclick="tooglePassword()">
+                                <label class="form-check-label h6 card-subtitle" for="showPassword">
+                                    Show password
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn cs-btn-sign-in font-monospace fw-bold text-uppercase" type="submit">Sign
+                            In</button>
+                    </div>
+                </form>
+                <div class="d-flex mt-2 h6 flex-row-reverse">
+                    <a href="/global/reset-password" class="card-link text-black-50">Forgot your Password?</a>
+                </div>
+                <hr>
+                <h6 class="card-text mb-2">Not a member?
+                    <a href="/global/create-account" class="card-link">Create Account</a>
+                </h6>
             </div>
         </div>
         <!-- Login Form Card | End -->

@@ -1,20 +1,21 @@
 package com.gmail.creativegeeksuresh.zyncky.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.gmail.creativegeeksuresh.zyncky.constants.MfaType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Getter
 @Setter
@@ -47,7 +48,10 @@ public class Application {
     @Column(name = "created_at", nullable = false)
     private Date createAt;
 
-    @ManyToMany
-    List<Role> roles;
+    @Column(name = "app_level_mfa", nullable = false)
+    private Boolean appLevelMfa = Boolean.TRUE;
+
+    @Enumerated(EnumType.ORDINAL)
+    private MfaType mfaType = MfaType.NONE;
  
 }

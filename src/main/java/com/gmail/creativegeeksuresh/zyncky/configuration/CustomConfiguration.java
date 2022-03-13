@@ -55,7 +55,7 @@ public class CustomConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
         .antMatchers("/global/**", "/", "/error/**","/api/v1/global/**").permitAll()
-        .antMatchers("/admin/**", "/api/v1/admin/**").hasRole(AppRole.ADMIN.name())
+        .antMatchers("/admin/**", "/api/v1/admin/**", "/api/v1/app/**").hasRole(AppRole.ADMIN.name())
         .antMatchers("/user/**", "/api/v1/user/**").hasRole(AppRole.USER.name())
         .antMatchers("/mfa/**", "/", "/api/v1/mfa/**").permitAll()
         .anyRequest().authenticated().and().csrf().disable()

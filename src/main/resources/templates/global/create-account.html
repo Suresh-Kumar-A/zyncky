@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Library App | Icon -->
-    <link rel="icon" href="/images/icon.png" sizes="any" type="image/png">
     <title>Create Account | Zyncky</title>
     <head th:replace="fragments/general :: css"></head>
 </head>
@@ -134,43 +132,43 @@
 
     <script>
         function showStep1() {
-            document.getElementById("step-progress-bar").style.width="0%";
+            document.getElementById("step-progress-bar").style.width = "0%";
 
             document.getElementById("step-1-content").classList.remove("d-none")
             document.getElementById("step-2-content").classList.add("d-none")
             document.getElementById("step-3-content").classList.add("d-none")
 
-            document.getElementById("spb-btn-1").classList.replace("btn-secondary","btn-primary");
-            document.getElementById("spb-btn-2").classList.replace("btn-primary","btn-secondary");
-            document.getElementById("spb-btn-3").classList.replace("btn-primary","btn-secondary");
-            
+            document.getElementById("spb-btn-1").classList.replace("btn-secondary", "btn-primary");
+            document.getElementById("spb-btn-2").classList.replace("btn-primary", "btn-secondary");
+            document.getElementById("spb-btn-3").classList.replace("btn-primary", "btn-secondary");
+
         }
 
         function showStep2() {
-            document.getElementById("step-progress-bar").style.width="50%"; 
-            document.getElementById("spb-btn-1").innerHTML=(validateStep1Form())?`<i class="fa-solid fa-circle-check"></i>`:"1";
+            document.getElementById("step-progress-bar").style.width = "50%";
+            document.getElementById("spb-btn-1").innerHTML = (validateStep1Form()) ? `<i class="fa-solid fa-circle-check"></i>` : "1";
 
             document.getElementById("step-1-content").classList.add("d-none")
             document.getElementById("step-2-content").classList.remove("d-none")
             document.getElementById("step-3-content").classList.add("d-none")
 
-            document.getElementById("spb-btn-2").classList.replace("btn-secondary","btn-primary");
-            document.getElementById("spb-btn-1").classList.replace("btn-primary","btn-secondary");
-            document.getElementById("spb-btn-3").classList.replace("btn-primary","btn-secondary");
+            document.getElementById("spb-btn-2").classList.replace("btn-secondary", "btn-primary");
+            document.getElementById("spb-btn-1").classList.replace("btn-primary", "btn-secondary");
+            document.getElementById("spb-btn-3").classList.replace("btn-primary", "btn-secondary");
         }
         function showStep3() {
-            document.getElementById("step-progress-bar").style.width="100%";
+            document.getElementById("step-progress-bar").style.width = "100%";
 
-            document.getElementById("spb-btn-1").innerHTML=(validateStep1Form())?`<i class="fa-solid fa-circle-check"></i>`:"1";
-            document.getElementById("spb-btn-2").innerHTML=(validateStep2Form())?`<i class="fa-solid fa-circle-check"></i>`:"2";
+            document.getElementById("spb-btn-1").innerHTML = (validateStep1Form()) ? `<i class="fa-solid fa-circle-check"></i>` : "1";
+            document.getElementById("spb-btn-2").innerHTML = (validateStep2Form()) ? `<i class="fa-solid fa-circle-check"></i>` : "2";
 
             document.getElementById("step-1-content").classList.add("d-none")
             document.getElementById("step-2-content").classList.add("d-none")
             document.getElementById("step-3-content").classList.remove("d-none")
 
-            document.getElementById("spb-btn-1").classList.replace("btn-primary","btn-secondary");
-            document.getElementById("spb-btn-2").classList.replace("btn-primary","btn-secondary");
-            document.getElementById("spb-btn-3").classList.replace("btn-secondary","btn-primary");
+            document.getElementById("spb-btn-1").classList.replace("btn-primary", "btn-secondary");
+            document.getElementById("spb-btn-2").classList.replace("btn-primary", "btn-secondary");
+            document.getElementById("spb-btn-3").classList.replace("btn-secondary", "btn-primary");
         }
 
         function validateStep1Form() {
@@ -248,61 +246,42 @@
         }
 
         function validateData() {
-            disableRegisterButton()
-            var userName = document.getElementById("username");
-            var password = document.getElementById("password");
-            var email = document.getElementById("email-id");
+            disableRegisterButton();
+            if (validateStep1Form() && validateStep2Form()) {
+                var userName = document.getElementById("username");
+                var password = document.getElementById("password");
+                var email = document.getElementById("email-id");
 
-            userName.classList.remove("is-valid", "is-invalid");
-            password.classList.remove("is-valid", "is-invalid");
-            email.classList.remove("is-valid", "is-invalid");
+                // Continue with Account Creation
+                var user = {};
+                user.username = userName.value;
+                user.email = email.value;
+                user.password = password.value;
 
+                const postRequestOptions = {
+                    method: 'POST',
+                    headers: new Headers({ 'content-type': 'application/json' }),
+                    body: JSON.stringify(user)
+                };
+                fetch(apiServerUrl + "/global/create-account", postRequestOptions)
+                    .then(response => response.json())
+                    .then((data) => {
+                        if (data && data.uid)
+                            showTopSuccessNotificationWithMessageAndAutoReload("Account Created Successfully");
+                        else if (data)
+                            showTopErrorNotificationWithMessage(data.errorMessage);
+                        else
+                            showTopErrorNotificationWithMessage("Unable to create account. Try again")
 
-            if (validateUsername(userName.value))
-                userName.classList.add("is-valid")
-            else {
-                userName.classList.add("is-invalid")
-                showRegisterButton()
-                return;
+                        showRegisterButton();
+                    })
+                    .catch(() => {
+                        showTopErrorNotificationWithMessage("Unable to create account. Try again")
+                    })
+            } else {
+                showTopErrorNotificationWithMessage("Form Validation failed. Try again")
+                showRegisterButton();
             }
-
-            if (validatePassword(password.value))
-                password.classList.add("is-valid")
-            else {
-                password.classList.add("is-invalid")
-                showRegisterButton()
-                return;
-            }
-
-            if (email.value.length==0 || validateEmail(email.value))
-                email.classList.add("is-valid")
-            else {
-                email.classList.add("is-invalid")
-                showRegisterButton()
-                return;
-            }
-
-
-            // Continue with Account Creation
-            var user = {};
-            user.username = userName.value;
-            user.email = email.value;
-            user.password = password.value;
-
-            const postRequestOptions = {
-                method: 'POST',
-                headers: new Headers({ 'content-type': 'application/json' }),
-                body: JSON.stringify(user)
-            };
-            fetch(apiServerUrl + "/global/create-account", postRequestOptions)
-                .then(response => response.json())
-                .then((data) => {
-                    console.log(data);
-                    showTopSuccessNotificationWithMessageAndAutoReload("Account Created Successfully")
-                })
-                .catch(() => {
-                    showTopErrorNotificationWithMessage("Unable to create account. Try again")
-                })
         }
     </script>
 </body>

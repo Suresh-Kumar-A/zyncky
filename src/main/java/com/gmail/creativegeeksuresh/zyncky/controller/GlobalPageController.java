@@ -32,10 +32,4 @@ public class GlobalPageController {
         return new ModelAndView("global/reset-password");
     }
 
-    @GetMapping(value = "/admin/dashboard")
-    public ModelAndView adminDashboardPage() {
-        ModelAndView mv = new ModelAndView("admin/dashboard");
-        return mv;
-    }
-
 }

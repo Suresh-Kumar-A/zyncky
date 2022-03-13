@@ -1,31 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard - Admin | LibraryApp</title>
-    <head th:replace="fragments/general :: css"></head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Admin</title>
 
+    <head th:replace="fragments/secure :: css"></head>
 </head>
 
 <body>
-    <div th:replace="fragments/admin :: header"></div>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div th:replace="fragments/admin :: sidebar"></div>
-
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <h1 class="h2 mt-1">Dashboard</h1>
-                <hr>
-
-
-            </main>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav th:replace="fragments/secure-content :: sidebar"></nav>
+        <!-- Page Content  -->
+        <div id="page-content">
+            <!-- Header -->
+            <nav th:replace="fragments/secure-content :: header"></nav>
+            <!-- Main Content -->
+            <div id="main-content" class="mx-4">
+    
+                <div sec:authorize="hasRole('USER')">Text visible to user.</div>
+                <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+                <div sec:authorize="isAuthenticated()">
+                    Text visible only to authenticated users.
+                </div>
+                Authenticated username:
+                <div sec:authentication="name"></div>
+                Authenticated user roles:
+                <div sec:authentication="principal.authorities"></div>
+            </div>
         </div>
     </div>
 
-    <body th:replace="fragments/general :: js"></body>
+    <body th:replace="fragments/secure :: js"></body>
+    
 </body>
 
 </html>

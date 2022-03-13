@@ -1,5 +1,5 @@
 package com.gmail.creativegeeksuresh.zyncky.constants;
 
 public enum MfaType {
-    OTP, GAUTH, FINGERPRINT, FACE_DETECTION;
+    NONE, GOOGLE_AUTH, OTP, FINGERPRINT, FACE_DETECTION;
 }

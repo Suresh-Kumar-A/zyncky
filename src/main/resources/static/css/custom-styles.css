@@ -21,7 +21,7 @@ input {
 
 .user-avatars:hover {
   box-shadow: 0 0.5rem 1rem rgba(56, 4, 14, 0.15) !important;
-  border-color: #38040E;
+  border-color: #38040e;
 }
 
 .cs-btn-info {
@@ -37,12 +37,16 @@ input {
 } */
 
 .cs-btn-sign-in {
-    color: #fff !important;
-    background-color: #a53860 !important;
-    border-color: #a53860 !important;
+  color: #fff !important;
+  background-color: #a53860 !important;
+  border-color: #a53860 !important;
 }
 
-.cs-selected-avatar{
+.cs-selected-avatar {
   box-shadow: 0 1rem 3rem rgba(56, 4, 14, 0.15) !important;
-  border-color: #38040E;
+  border-color: #38040e;
+}
+
+.cs-mt-5 {
+  margin-top: 2rem !important;
 }

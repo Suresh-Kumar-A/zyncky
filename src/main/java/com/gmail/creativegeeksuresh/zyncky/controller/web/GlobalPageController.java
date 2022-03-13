@@ -1,4 +1,4 @@
-package com.gmail.creativegeeksuresh.zyncky.controller;
+package com.gmail.creativegeeksuresh.zyncky.controller.web;
 
 import com.gmail.creativegeeksuresh.zyncky.service.internal.UserService;
 import com.gmail.creativegeeksuresh.zyncky.service.util.CustomUtils;

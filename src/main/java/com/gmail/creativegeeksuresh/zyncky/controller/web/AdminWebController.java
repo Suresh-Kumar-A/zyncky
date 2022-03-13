@@ -1,5 +1,8 @@
-package com.gmail.creativegeeksuresh.zyncky.controller;
+package com.gmail.creativegeeksuresh.zyncky.controller.web;
 
+import com.gmail.creativegeeksuresh.zyncky.service.internal.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminWebController {
+
+    @Autowired
+    UserService userService;
 
 
     @GetMapping(value = "/dashboard")
@@ -26,8 +32,10 @@ public class AdminWebController {
     }
 
     @GetMapping(value = "/view-users")
-    public ModelAndView viewUsersPage(){
-        return new ModelAndView("admin/view-users");
+    public ModelAndView viewUsersPage() throws Exception{
+        ModelAndView mv = new ModelAndView("admin/view-users");
+        mv.addObject("userList", userService.getAllUsersWithoutPassword());
+        return mv;
     }
     @GetMapping(value = "/add-user")
     public ModelAndView addUserPage(){

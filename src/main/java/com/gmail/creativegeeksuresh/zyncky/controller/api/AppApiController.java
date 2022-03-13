@@ -1,4 +1,4 @@
-package com.gmail.creativegeeksuresh.zyncky.controller;
+package com.gmail.creativegeeksuresh.zyncky.controller.api;
 
 import com.gmail.creativegeeksuresh.zyncky.dto.ApplicationDto;
 import com.gmail.creativegeeksuresh.zyncky.dto.CustomErrorResponse;

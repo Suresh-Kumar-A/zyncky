@@ -43,9 +43,6 @@ body {
   place-items: center;
 }
 
-/* // old bootstrap info color */
-/* #17a2b8 */
-
 .cs-btn-info {
   color: #fff !important;
   background-color: #335c67;

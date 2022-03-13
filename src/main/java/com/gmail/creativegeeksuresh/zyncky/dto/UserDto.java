@@ -1,34 +1,32 @@
 package com.gmail.creativegeeksuresh.zyncky.dto;
 
+import java.util.Date;
+import java.util.List;
+
+import com.gmail.creativegeeksuresh.zyncky.model.Role;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
-  private String uid;
 
   private String username;
 
   private String password;
 
-  public String getUid() {
-    return uid;
-  }
+  private Integer sno;
 
-  public void setUid(String uid) {
-    this.uid = uid;
-  }
+  private String uid;
 
+  private Boolean status = Boolean.TRUE;
 
-  public String getusername() {
-    return username;
-  }
+  private Date createdAt;
 
-  public void setusername(String username) {
-    this.username = username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
+  private List<Role> roles;
 }

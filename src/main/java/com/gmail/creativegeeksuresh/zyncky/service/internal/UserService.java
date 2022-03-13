@@ -13,6 +13,7 @@ import com.gmail.creativegeeksuresh.zyncky.model.User;
 import com.gmail.creativegeeksuresh.zyncky.repository.UserRepository;
 import com.gmail.creativegeeksuresh.zyncky.service.util.CustomUtils;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,28 +28,34 @@ public class UserService {
   @Autowired
   private RoleService roleService;
 
-  public User createUser(UserDto request) throws UserAlreadyExistsException, Exception {
-    if (userRepository.findByUsername(request.getusername()) != null)
+  public UserDto createUser(UserDto request) throws UserAlreadyExistsException, Exception {
+    if (userRepository.findByUsername(request.getUsername()) != null)
       throw new UserAlreadyExistsException("User with similar data exists");
     User newUser = new User();
-    newUser.setUsername(request.getusername());
+    newUser.setUsername(request.getUsername());
     newUser.setPassword(customUtils.encodeUsingBcryptPasswordEncoder(request.getPassword()));
     newUser.setUid(customUtils.generateToken());
     newUser.setCreatedAt(new Date());
     newUser.setRoles(List.of(roleService.findByRoleName(AppRole.USER.name())));
-    return userRepository.save(newUser);
+    newUser = userRepository.save(newUser);
+    UserDto response = new UserDto();
+    BeanUtils.copyProperties(newUser, response);
+    return response;
   }
 
-  public User createAdminUser(UserDto request) throws UserAlreadyExistsException, Exception {
-    if (userRepository.findByUsername(request.getusername()) != null)
+  public UserDto createAdminUser(UserDto request) throws UserAlreadyExistsException, Exception {
+    if (userRepository.findByUsername(request.getUsername()) != null)
       throw new UserAlreadyExistsException("User with similar data exists");
     User newUser = new User();
-    newUser.setUsername(request.getusername());
+    newUser.setUsername(request.getUsername());
     newUser.setPassword(customUtils.encodeUsingBcryptPasswordEncoder(request.getPassword()));
     newUser.setUid(customUtils.generateToken());
     newUser.setCreatedAt(new Date());
     newUser.setRoles(List.of(roleService.findByRoleName(AppRole.ADMIN.name())));
-    return userRepository.save(newUser);
+    newUser = userRepository.save(newUser);
+    UserDto response = new UserDto();
+    BeanUtils.copyProperties(newUser, response);
+    return response;
   }
 
   public User findByUsername(String username) throws InvalidUserException, Exception {
@@ -61,7 +68,7 @@ public class UserService {
 
   public User validateUserCredentials(UserDto user)
       throws InvalidCredentialsException, InvalidUserException, Exception {
-    User dbUser = findByUsername(user.getusername());
+    User dbUser = findByUsername(user.getUsername());
     if (dbUser != null) {
       if (customUtils.verifyUserPassword(user.getPassword(), dbUser.getPassword())) {
         dbUser.setPassword("");
@@ -78,7 +85,7 @@ public class UserService {
 
   public List<User> getAllUsersWithoutPassword() throws Exception {
     List<User> userList = getAllUsers();
-    userList.stream().map(user -> {
+    userList = userList.stream().map(user -> {
       user.setPassword("");
       return user;
     }).collect(Collectors.toList());

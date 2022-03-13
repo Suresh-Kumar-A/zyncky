@@ -1,4 +1,4 @@
-package com.gmail.creativegeeksuresh.zyncky.controller;
+package com.gmail.creativegeeksuresh.zyncky.controller.api;
 
 import java.util.Date;
 import java.util.HashMap;

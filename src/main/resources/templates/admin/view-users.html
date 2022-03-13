@@ -19,44 +19,75 @@
             <!-- Header -->
             <nav th:replace="fragments/secure-content :: header"></nav>
             <!-- Main Content -->
-            <div id="main-content" class="mx-4">
-            <div class="container">
+            <div id="main-content" class="container">
                 <div class="row">
                     <div class="col">
-                        <div class="card" style="max-width: 25rem;">
+                        <div class="card">
                             <div class="card-body">
-                                <div class="text-center position-absolute top-0 start-50 translate-middle">
-                                    <img src="/images/icon.png" class="w-50" alt="library app logo">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title">List Users</h4>
+                                    <div class="dropdown">
+                                        <button class="btn btn-light me-1" type="button" id="userListOptions"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="userListOptions">
+                                            <li><a class="dropdown-item" href="#">
+                                                    <i class="fa-solid fa-upload"></i>
+                                                    <span class="mx-1 text-primary">Import</span>
+                                                </a>
+                                            </li>
+                                            <hr class="dropdown-divider">
+                                            <li><a class="dropdown-item" href="#">
+                                                    <i class="fa-solid fa-download"></i>
+                                                    <span class="mx-1 text-success">Export</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <h5 class="card-title text-center cs-mt-5">Reset password</h5>
-                                <h6 class="card-subtitle text-muted my-1 text-center">Enter your account email address or username.</h6>
-                                <form action="#" method="POST" class="mt-3 row">
-                                    <div class="col-12 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="username-or-email-id"
-                                                placeholder="Eg: suresh_kumar_a" name="username-or-email-id" autofocus>
-                                            <label class="h6 card-subtitle" for="username-or-email-id">Username / Email-Id</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-grid">
-                                        <button class="btn cs-btn-sign-in font-monospace fw-bold text-uppercase" 
-                                        type="button" onclick="validateData()">Reset Password</button>
-                                    </div>
-                                </form>
+                                <h6 class="card-subtitle text-muted">You can view/edit/lock/reset account from here</h6>
                                 <hr>
-                                <div class="d-grid">
-                                    <a href="/global/login" class="btn btn-outline-secondary font-monospace fw-bold text-uppercase">Return to Sign In</a>
-                                </div>
+                                <table class="table">
+                                    <thead class="bg-secondary text-white">
+                                        <th>Sno</th>
+                                        <th>Username</th>
+                                        <th>Email Id</th>
+                                        <th>Display Name</th>
+                                        <th>Actions</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="user,loop: ${userList}">
+                                            <td th:text="${loop.count}"></td>
+                                            <td th:text="${user.username}"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="User Actions">
+                                                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" title="View">
+                                                        <i class="fa-solid fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn cs-btn-info" data-bs-toggle="tooltip" title="Edit">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" title="Delete">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                  </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
         </div>
     </div>
-   <body th:replace="fragments/secure :: js"></body>
-    
+
+    <body th:replace="fragments/secure :: js"></body>
+
 </body>
 
 </html>

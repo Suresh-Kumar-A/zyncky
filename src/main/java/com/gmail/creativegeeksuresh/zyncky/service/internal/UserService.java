@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.gmail.creativegeeksuresh.zyncky.constants.AppConstants;
 import com.gmail.creativegeeksuresh.zyncky.constants.AppRole;
 import com.gmail.creativegeeksuresh.zyncky.dto.UserDto;
 import com.gmail.creativegeeksuresh.zyncky.exception.InvalidCredentialsException;
@@ -71,18 +70,6 @@ public class UserService {
         throw new InvalidCredentialsException("User Credentials are incorrect or invalid");
     } else
       throw new InvalidUserException("User does not exists");
-  }
-
-  public void createAdminUser(String adminUsername, String adminPassword, String adminEmail) throws Exception {
-    if (userRepository.findByUsername(adminUsername) == null) {
-      User adminUser = new User();
-      adminUser.setUsername(adminUsername);
-      adminUser.setPassword(customUtils.encodeUsingBcryptPasswordEncoder(adminPassword));
-      adminUser.setUid(customUtils.generateToken());
-      adminUser.setCreatedAt(new Date());
-      adminUser.setRoles(List.of(roleService.findByRoleName(AppConstants.ADMIN_ROLE_STRING)));
-      userRepository.save(adminUser);
-    }
   }
 
   public List<User> getAllUsers() throws Exception {

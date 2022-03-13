@@ -1,0 +1,48 @@
+/* important to set the height for full screen height */
+.custom-full-height {
+  height: 100vh;
+}
+
+img {
+  height: 100% !important;
+}
+
+input {
+  font-family: "Roboto" !important;
+}
+
+.cs-bg {
+  background-color: #10002b !important;
+}
+
+.cs-w-90 {
+  width: 90% !important;
+}
+
+.user-avatars:hover {
+  box-shadow: 0 0.5rem 1rem rgba(56, 4, 14, 0.15) !important;
+  border-color: #38040E;
+}
+
+.cs-btn-info {
+  color: #fff !important;
+  background-color: #335c67;
+  border-color: #335c67;
+}
+
+/* .cs-btn-sign-in {
+  color: #fff !important;
+  background-color: #5f0f40 !important;
+  border-color: #5f0f40 !important;
+} */
+
+.cs-btn-sign-in {
+    color: #fff !important;
+    background-color: #a53860 !important;
+    border-color: #a53860 !important;
+}
+
+.cs-selected-avatar{
+  box-shadow: 0 1rem 3rem rgba(56, 4, 14, 0.15) !important;
+  border-color: #38040E;
+}

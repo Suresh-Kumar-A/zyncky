@@ -14,24 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
-    <style>
-        /* important to set the height for full screen height */
-        .custom-full-height {
-            height: 100vh;
-        }
-
-        img {
-            height: 100% !important;
-        }
-
-        input {
-            font-family: 'Roboto' !important;
-        }
-
-        .cs-bg{
-            background-color: #10002b !important;
-        }
-    </style>
+    <head th:replace="fragments/general :: css"></head>
 </head>
 
 <body class="cs-bg">
@@ -69,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="d-grid">
-                                <button class="btn btn-dark font-monospace fw-bold text-uppercase" type="submit">Sign
+                                <button class="btn cs-btn-sign-in font-monospace fw-bold text-uppercase" type="submit">Sign
                                     In</button>
                             </div>
                         </form>
@@ -87,12 +70,7 @@
         <!-- Login Form Card | End -->
     </div>
 
-    <!-- Bootstrap | JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"></script>
-    <!-- Custom Form Validation Scripts | JS -->
-    <script src="js/form.validation.js"></script>
+    <body th:replace="fragments/general :: js"></body>
 
     <script>
         function tooglePassword() {
